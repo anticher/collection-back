@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/users/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class Collection {
@@ -17,8 +18,11 @@ export class Collection {
   @Column({ default: null })
   image: string | null;
 
-  @Column()
-  owner: string;
+  @ManyToOne(() => User, (user) => user.id)
+  owner: User;
+
+  // @Column()
+  // owner: string;
 
   @Column()
   creator: string;
