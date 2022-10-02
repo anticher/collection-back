@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Collection } from '../collection.entity';
+import { CreateCollectionDto } from '../dto/create.dto';
 import { CollectionsRepositoryService } from './collections-repository.service';
 
 @Injectable()
@@ -20,7 +21,9 @@ export class CollectionsService {
     return await this.collectionsRepositoryService.getLatest(count);
   }
 
-  public async addCollection(collection: Collection): Promise<Collection> {
+  public async addCollection(
+    collection: CreateCollectionDto,
+  ): Promise<Collection> {
     return await this.collectionsRepositoryService.addCollection(collection);
   }
 }

@@ -12,7 +12,11 @@ export class UsersRepositoryService {
   ) {}
 
   public async getList(): Promise<User[]> {
-    return await this.usersRepository.find();
+    return await this.usersRepository.find({
+      relations: {
+        collections: true,
+      },
+    });
   }
 
   public async getUserByName(username: string): Promise<User> {

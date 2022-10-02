@@ -1,5 +1,6 @@
 import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { Collection } from './collection.entity';
+import { CreateCollectionDto } from './dto/create.dto';
 import { CollectionsService } from './services/collections.service';
 
 @Controller('v1/collections')
@@ -27,7 +28,7 @@ export class CollectionsController {
   @Post('add-collection')
   @HttpCode(201)
   public async addCollection(
-    @Body() collection: Collection,
+    @Body() collection: CreateCollectionDto,
   ): Promise<Collection> {
     return await this.collectionsService.addCollection(collection);
   }

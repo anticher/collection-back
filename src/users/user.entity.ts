@@ -1,3 +1,4 @@
+import { CollectionItem } from 'src/collection-items/collection-item.entity';
 import { Collection } from 'src/collections/collection.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
@@ -29,4 +30,7 @@ export class User {
 
   @OneToMany(() => Collection, (collection) => collection.owner)
   collections: Collection[];
+
+  @OneToMany(() => CollectionItem, (collectionItem) => collectionItem.owner)
+  collectionItems: CollectionItem[];
 }

@@ -1,15 +1,9 @@
-import { CollectionItem } from 'src/collection-items/collection-item.entity';
+import { Collection } from 'src/collections/collection.entity';
 import { User } from 'src/users/user.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
-export class Collection {
+export class CollectionItem {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -17,19 +11,18 @@ export class Collection {
   name: string;
 
   @Column()
-  description: string;
+  tags: string;
 
+  @ManyToOne(() => Collection, (collection) => collection.id)
+  collection: Collection;
   @Column()
-  theme: string;
+  public collectionId: string;
 
   @Column({ default: null })
-  image: string | null;
+  likes: string | null;
 
-  @OneToMany(
-    () => CollectionItem,
-    (collectionItem) => collectionItem.collection,
-  )
-  collectionItems: CollectionItem[];
+  @Column({ default: null })
+  comments: string | null;
 
   @ManyToOne(() => User, (user) => user.id)
   owner: User;
