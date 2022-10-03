@@ -8,5 +8,5 @@ export class CreateCollectionItemDto {
   @IsString()
   ownerId: string;
   @IsString()
-  tags: string;
+  tagNames: string;
 }

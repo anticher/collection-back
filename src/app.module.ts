@@ -11,6 +11,8 @@ import { CollectionItemsModule } from './collection-items/collection-items.modul
 import { CollectionItem } from './collection-items/collection-item.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comment.entity';
+import { TagsModule } from './tags/tags.module';
+import { Tag } from './tags/tag.entity';
 
 @Module({
   imports: [
@@ -25,13 +27,14 @@ import { Comment } from './comments/comment.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Collection, CollectionItem, Comment, User],
+      entities: [Collection, CollectionItem, Comment, Tag, User],
       synchronize: true,
     }),
     UsersModule,
     CollectionsModule,
     CollectionItemsModule,
     CommentsModule,
+    TagsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

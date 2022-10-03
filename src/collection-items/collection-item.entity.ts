@@ -1,5 +1,6 @@
 import { Collection } from 'src/collections/collection.entity';
 import { Comment } from 'src/comments/comment.entity';
+import { Tag } from 'src/tags/tag.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -7,6 +8,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -17,8 +20,9 @@ export class CollectionItem {
   @Column()
   name: string;
 
-  @Column()
-  tags: string;
+  @ManyToMany(() => Tag, (tag) => tag.collectionItems)
+  @JoinTable()
+  tags: Tag[];
 
   @ManyToOne(() => Collection, (collection) => collection.id)
   collection: Collection;
