@@ -1,4 +1,5 @@
 import { CollectionItem } from 'src/collection-items/collection-item.entity';
+import { Theme } from 'src/themes/theme.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -6,6 +7,8 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -19,8 +22,11 @@ export class Collection {
   @Column()
   description: string;
 
-  @Column()
-  theme: string;
+  @ManyToMany(() => Theme, (theme) => theme.collections)
+  @JoinTable({
+    name: 'collections_themes',
+  })
+  theme: Theme;
 
   @Column({ default: null })
   image: string | null;

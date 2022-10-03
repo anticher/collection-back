@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tag } from 'src/tags/tag.entity';
-import { DataSource, Raw, Repository } from 'typeorm';
+import { Raw, Repository } from 'typeorm';
 import { CollectionItem } from '../collection-item.entity';
 import { CreateCollectionItemDto } from '../dto/create.dto';
 
@@ -12,7 +12,6 @@ export class CollectionItemsRepositoryService {
     private collectionItemsRepository: Repository<CollectionItem>,
     @InjectRepository(Tag)
     private TagsRepository: Repository<Tag>,
-    private dataSource: DataSource,
   ) {}
 
   public async getAll(): Promise<CollectionItem[]> {

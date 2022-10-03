@@ -13,6 +13,8 @@ import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comment.entity';
 import { TagsModule } from './tags/tags.module';
 import { Tag } from './tags/tag.entity';
+import { ThemesModule } from './themes/themes.module';
+import { Theme } from './themes/theme.entity';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { Tag } from './tags/tag.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Collection, CollectionItem, Comment, Tag, User],
+      entities: [Collection, CollectionItem, Comment, Tag, Theme, User],
       synchronize: true,
     }),
     UsersModule,
@@ -35,6 +37,7 @@ import { Tag } from './tags/tag.entity';
     CollectionItemsModule,
     CommentsModule,
     TagsModule,
+    ThemesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

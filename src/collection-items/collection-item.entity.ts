@@ -21,7 +21,9 @@ export class CollectionItem {
   name: string;
 
   @ManyToMany(() => Tag, (tag) => tag.collectionItems)
-  @JoinTable()
+  @JoinTable({
+    name: 'collection_items_tags',
+  })
   tags: Tag[];
 
   @ManyToOne(() => Collection, (collection) => collection.id)
