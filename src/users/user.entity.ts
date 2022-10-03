@@ -1,5 +1,6 @@
 import { CollectionItem } from 'src/collection-items/collection-item.entity';
 import { Collection } from 'src/collections/collection.entity';
+import { Comment } from 'src/comments/comment.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
@@ -33,4 +34,7 @@ export class User {
 
   @OneToMany(() => CollectionItem, (collectionItem) => collectionItem.owner)
   collectionItems: CollectionItem[];
+
+  @OneToMany(() => Comment, (comment) => comment.owner)
+  comments: Comment[];
 }

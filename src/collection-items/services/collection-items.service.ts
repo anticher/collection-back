@@ -13,10 +13,10 @@ export class CollectionItemsService {
     return await this.collectionItemsRepositoryService.getAll();
   }
 
-  public async addCollection(
+  public async addCollectionItem(
     collectionItem: CreateCollectionItemDto,
   ): Promise<CollectionItem> {
-    return await this.collectionItemsRepositoryService.addCollection(
+    return await this.collectionItemsRepositoryService.addCollectionItem(
       collectionItem,
     );
   }

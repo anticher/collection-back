@@ -34,7 +34,7 @@ export class Collection {
   @ManyToOne(() => User, (user) => user.id)
   owner: User;
   @Column()
-  public ownerId: string;
+  ownerId: string;
 
   @Column()
   creator: string;

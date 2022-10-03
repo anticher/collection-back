@@ -1,6 +1,13 @@
 import { Collection } from 'src/collections/collection.entity';
+import { Comment } from 'src/comments/comment.entity';
 import { User } from 'src/users/user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
 export class CollectionItem {
@@ -16,18 +23,18 @@ export class CollectionItem {
   @ManyToOne(() => Collection, (collection) => collection.id)
   collection: Collection;
   @Column()
-  public collectionId: string;
+  collectionId: string;
 
   @Column({ default: null })
   likes: string | null;
 
-  @Column({ default: null })
-  comments: string | null;
-
   @ManyToOne(() => User, (user) => user.id)
   owner: User;
   @Column()
-  public ownerId: string;
+  ownerId: string;
+
+  @OneToMany(() => Comment, (comment) => comment.item)
+  comments: Comment[];
 
   @Column()
   creator: string;

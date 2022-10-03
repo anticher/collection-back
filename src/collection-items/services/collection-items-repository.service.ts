@@ -12,10 +12,14 @@ export class CollectionItemsRepositoryService {
   ) {}
 
   public async getAll(): Promise<CollectionItem[]> {
-    return await this.collectionItemsRepository.find();
+    return await this.collectionItemsRepository.find({
+      relations: {
+        comments: true,
+      },
+    });
   }
 
-  public async addCollection(
+  public async addCollectionItem(
     collectionItem: CreateCollectionItemDto,
   ): Promise<CollectionItem> {
     const newCollectionItem = {

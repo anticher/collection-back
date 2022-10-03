@@ -17,9 +17,9 @@ export class CollectionItemsController {
 
   @Post('add-collection-item')
   @HttpCode(201)
-  public async addCollection(
+  public async addCollectionItem(
     @Body() collectionItem: CreateCollectionItemDto,
   ): Promise<CollectionItem> {
-    return await this.collectionItemsService.addCollection(collectionItem);
+    return await this.collectionItemsService.addCollectionItem(collectionItem);
   }
 }
