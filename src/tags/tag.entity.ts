@@ -1,4 +1,4 @@
-import { CollectionItem } from 'src/collection-items/collection-item.entity';
+import { Item } from 'src/items/item.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 
 @Entity()
@@ -12,6 +12,6 @@ export class Tag {
   @Column({ default: null })
   createDate: string | null;
 
-  @ManyToMany(() => CollectionItem, (collectionItem) => collectionItem.tags)
-  collectionItems: CollectionItem[];
+  @ManyToMany(() => Item, (item) => item.tags)
+  collectionItems: Item[];
 }

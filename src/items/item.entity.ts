@@ -13,7 +13,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class CollectionItem {
+export class Item {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -22,7 +22,7 @@ export class CollectionItem {
 
   @ManyToMany(() => Tag, (tag) => tag.collectionItems)
   @JoinTable({
-    name: 'collection_items_tags',
+    name: 'item_tag',
   })
   tags: Tag[];
 

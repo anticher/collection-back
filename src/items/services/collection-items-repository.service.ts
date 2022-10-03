@@ -2,19 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Tag } from 'src/tags/tag.entity';
 import { Raw, Repository } from 'typeorm';
-import { CollectionItem } from '../collection-item.entity';
-import { CreateCollectionItemDto } from '../dto/create.dto';
+import { CreateItemDto } from '../dto/create.dto';
+import { Item } from '../item.entity';
 
 @Injectable()
-export class CollectionItemsRepositoryService {
+export class ItemsRepositoryService {
   constructor(
-    @InjectRepository(CollectionItem)
-    private collectionItemsRepository: Repository<CollectionItem>,
+    @InjectRepository(Item)
+    private collectionItemsRepository: Repository<Item>,
     @InjectRepository(Tag)
     private TagsRepository: Repository<Tag>,
   ) {}
 
-  public async getAll(): Promise<CollectionItem[]> {
+  public async getAll(): Promise<Item[]> {
     return await this.collectionItemsRepository.find({
       relations: {
         comments: true,
@@ -23,9 +23,7 @@ export class CollectionItemsRepositoryService {
     });
   }
 
-  public async addCollectionItem(
-    collectionItem: CreateCollectionItemDto,
-  ): Promise<CollectionItem> {
+  public async addCollectionItem(collectionItem: CreateItemDto): Promise<Item> {
     const tagNamesArray = collectionItem.tagNames.split(',');
     const tags = await this.TagsRepository.findBy({
       name: Raw((alias) => `${alias} IN (:...names)`, {

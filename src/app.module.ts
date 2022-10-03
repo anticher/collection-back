@@ -7,8 +7,8 @@ import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { CollectionsModule } from './collections/collections.module';
 import { Collection } from './collections/collection.entity';
-import { CollectionItemsModule } from './collection-items/collection-items.module';
-import { CollectionItem } from './collection-items/collection-item.entity';
+import { CollectionItemsModule } from './items/collection-items.module';
+import { Item } from './items/item.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comment.entity';
 import { TagsModule } from './tags/tags.module';
@@ -29,7 +29,7 @@ import { Theme } from './themes/theme.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Collection, CollectionItem, Comment, Tag, Theme, User],
+      entities: [Collection, Item, Comment, Tag, Theme, User],
       synchronize: true,
     }),
     UsersModule,

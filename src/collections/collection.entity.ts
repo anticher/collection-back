@@ -1,4 +1,4 @@
-import { CollectionItem } from 'src/collection-items/collection-item.entity';
+import { Item } from 'src/items/item.entity';
 import { Theme } from 'src/themes/theme.entity';
 import { User } from 'src/users/user.entity';
 import {
@@ -24,18 +24,15 @@ export class Collection {
 
   @ManyToMany(() => Theme, (theme) => theme.collections)
   @JoinTable({
-    name: 'collections_themes',
+    name: 'collection_theme',
   })
   theme: Theme;
 
   @Column({ default: null })
   image: string | null;
 
-  @OneToMany(
-    () => CollectionItem,
-    (collectionItem) => collectionItem.collection,
-  )
-  collectionItems: CollectionItem[];
+  @OneToMany(() => Item, (item) => item.collection)
+  items: Item[];
 
   @ManyToOne(() => User, (user) => user.id)
   owner: User;

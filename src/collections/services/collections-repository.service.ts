@@ -17,7 +17,7 @@ export class CollectionsRepositoryService {
   public async getAll(): Promise<Collection[]> {
     return await this.collectionsRepository.find({
       relations: {
-        collectionItems: true,
+        items: true,
         theme: true,
       },
     });

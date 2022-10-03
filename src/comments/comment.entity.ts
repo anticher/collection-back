@@ -1,4 +1,4 @@
-import { CollectionItem } from 'src/collection-items/collection-item.entity';
+import { Item } from 'src/items/item.entity';
 import { User } from 'src/users/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
@@ -18,8 +18,8 @@ export class Comment {
   @Column()
   ownerId: string;
 
-  @ManyToOne(() => CollectionItem, (collectionItem) => collectionItem.id)
-  item: CollectionItem;
+  @ManyToOne(() => Item, (item) => item.id)
+  item: Item;
   @Column()
   itemId: string;
 
