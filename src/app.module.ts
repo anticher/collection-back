@@ -15,12 +15,12 @@ import { TagsModule } from './tags/tags.module';
 import { Tag } from './tags/tag.entity';
 import { ThemesModule } from './themes/themes.module';
 import { Theme } from './themes/theme.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -38,6 +38,7 @@ import { Theme } from './themes/theme.entity';
     CommentsModule,
     TagsModule,
     ThemesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

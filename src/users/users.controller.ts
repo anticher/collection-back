@@ -6,15 +6,18 @@ import {
   HttpCode,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create.dto';
 import { User } from './user.entity';
 import { UsersService } from './services/users.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('v1/users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   @HttpCode(200)
   public getList(): Promise<User[]> {
