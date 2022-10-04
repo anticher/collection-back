@@ -25,7 +25,8 @@ export class AbilitiesGuard implements CanActivate {
 
     const { user } = context.switchToHttp().getRequest();
     const ability = this.caslAbilityFactory.createForUser(user);
-
+    console.log(user);
+    console.log(context.switchToHttp().getRequest().body);
     try {
       rules.forEach((rule) => {
         ForbiddenError.from(ability).throwUnlessCan(rule.action, rule.subject);

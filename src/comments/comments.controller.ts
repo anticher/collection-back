@@ -1,4 +1,16 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { CheckAbilities } from 'src/casl/abilities.decorator';
+import { AbilitiesGuard } from 'src/casl/abilities.guard';
+import { Actions } from 'src/casl/actions.enum';
+import { Collection } from 'src/collections/collection.entity';
 import { Comment } from './comment.entity';
 import { CreateCommentDto } from './dto/create.dto';
 import { CommentsService } from './services/comments.service';
@@ -14,6 +26,8 @@ export class CommentsController {
   }
 
   @Post('add-comment')
+  @UseGuards(JwtAuthGuard, AbilitiesGuard)
+  @CheckAbilities({ action: Actions.Create, subject: Collection })
   @HttpCode(201)
   public async addCollectionItem(
     @Body() comment: CreateCommentDto,
