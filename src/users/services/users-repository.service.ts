@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Role } from 'src/auth/role.enum';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dto/create.dto';
 import { User } from '../user.entity';
@@ -58,7 +59,9 @@ export class UsersRepositoryService {
   }): Promise<void> {
     const idsArr = ids.split(',');
     const promiseArr = idsArr.map((id) => {
-      return this.usersRepository.update(id, { isAdmin });
+      return this.usersRepository.update(id, {
+        role: isAdmin ? Role.Admin : Role.User,
+      });
     });
     await Promise.all(promiseArr);
     return;

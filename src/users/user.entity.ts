@@ -2,6 +2,7 @@ import { Item } from 'src/items/item.entity';
 import { Collection } from 'src/collections/collection.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Role } from 'src/auth/role.enum';
 
 @Entity()
 export class User {
@@ -26,8 +27,14 @@ export class User {
   @Column({ default: false })
   isBlocked: boolean;
 
-  @Column({ default: false })
-  isAdmin: boolean;
+  // @Column({ default: false })
+  // isAdmin: boolean;
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.User,
+  })
+  public role: Role;
 
   @OneToMany(() => Collection, (collection) => collection.owner)
   collections: Collection[];

@@ -17,8 +17,6 @@ export class AuthService {
     const user = await this.usersRepositoryService.getUserByName(
       loginDto.username,
     );
-    console.log(user);
-    console.log(loginDto);
     if (typeof user === 'string' || user.password !== loginDto.password) {
       throw new BadRequestException();
     }
@@ -28,7 +26,8 @@ export class AuthService {
   private getToken(user: User): { accessToken: string } {
     const payload = {
       username: user.username,
-      sub: user.id,
+      role: user.role,
+      id: user.id,
     };
     return {
       accessToken: this.jwtService.sign(payload, {

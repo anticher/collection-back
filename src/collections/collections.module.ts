@@ -5,9 +5,10 @@ import { CollectionsController } from './collections.controller';
 import { Collection } from './collection.entity';
 import { CollectionsRepositoryService } from './services/collections-repository.service';
 import { Theme } from 'src/themes/theme.entity';
+import { CaslModule } from 'src/casl/casl.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Collection, Theme])],
+  imports: [TypeOrmModule.forFeature([Collection, Theme]), CaslModule],
   providers: [CollectionsService, CollectionsRepositoryService],
   controllers: [CollectionsController],
 })
