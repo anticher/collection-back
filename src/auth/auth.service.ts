@@ -16,7 +16,7 @@ export class AuthService {
   public async registration(registrationDto: RegistrationDto): Promise<User> {
     registrationDto.password = await bcrypt.hash(
       registrationDto.password,
-      process.env.PASSWORD_SALT_OR_ROUNDS,
+      +process.env.PASSWORD_SALT_OR_ROUNDS,
     );
     const user = await this.usersRepositoryService.addUser(registrationDto);
     return user;
