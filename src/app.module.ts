@@ -16,7 +16,6 @@ import { Tag } from './tags/tag.entity';
 import { ThemesModule } from './themes/themes.module';
 import { Theme } from './themes/theme.entity';
 import { AuthModule } from './auth/auth.module';
-import { CaslModule } from './casl/casl.module';
 
 @Module({
   imports: [
@@ -40,7 +39,6 @@ import { CaslModule } from './casl/casl.module';
     TagsModule,
     ThemesModule,
     AuthModule,
-    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],

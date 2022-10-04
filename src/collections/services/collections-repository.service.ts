@@ -31,16 +31,6 @@ export class CollectionsRepositoryService {
     return await this.collectionsRepository.find();
   }
 
-  // public async addCollection(
-  //   collection: CreateCollectionDto,
-  // ): Promise<Collection> {
-  //   const newCollection = {
-  //     ...collection,
-  //     createDate: Date.now().toString(),
-  //   };
-  //   return await this.collectionsRepository.save(newCollection);
-  // }
-
   public async addCollection(
     collection: CreateCollectionDto,
   ): Promise<Collection> {
@@ -54,5 +44,9 @@ export class CollectionsRepositoryService {
       createDate: Date.now().toString(),
     });
     return await this.collectionsRepository.save(newCollection);
+  }
+
+  public async deleteCollection(id: string): Promise<number> {
+    return (await this.collectionsRepository.delete(id)).affected;
   }
 }

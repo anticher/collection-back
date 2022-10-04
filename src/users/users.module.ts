@@ -4,10 +4,9 @@ import { UsersController } from './users.controller';
 import { UsersService } from './services/users.service';
 import { UsersRepositoryService } from './services/users-repository.service';
 import { User } from './user.entity';
-import { CaslModule } from 'src/casl/casl.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), CaslModule],
+  imports: [TypeOrmModule.forFeature([User])],
   controllers: [UsersController],
   providers: [UsersService, UsersRepositoryService],
   exports: [UsersRepositoryService],

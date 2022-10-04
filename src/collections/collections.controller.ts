@@ -1,16 +1,15 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
+  Param,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { CheckAbilities } from 'src/casl/abilities.decorator';
-import { AbilitiesGuard } from 'src/casl/abilities.guard';
-import { Actions } from 'src/casl/actions.enum';
 import { Collection } from './collection.entity';
 import { CreateCollectionDto } from './dto/create.dto';
 import { CollectionsService } from './services/collections.service';
@@ -38,12 +37,18 @@ export class CollectionsController {
   }
 
   @Post('add-collection')
-  @UseGuards(JwtAuthGuard, AbilitiesGuard)
-  @CheckAbilities({ action: Actions.Create, subject: Collection })
+  @UseGuards(JwtAuthGuard)
   @HttpCode(201)
   public async addCollection(
     @Body() collection: CreateCollectionDto,
   ): Promise<Collection> {
     return await this.collectionsService.addCollection(collection);
+  }
+
+  @Delete('delete-collection/:id')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(204)
+  public async deleteCollection(@Param('id') id: string): Promise<void> {
+    return await this.collectionsService.deleteCollection(id);
   }
 }
