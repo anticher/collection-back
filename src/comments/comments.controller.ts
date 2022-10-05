@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Comment } from './comment.entity';
 import { CreateCommentDto } from './dto/create.dto';
 import { CommentsService } from './services/comments.service';

@@ -7,7 +7,7 @@ import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { CollectionsModule } from './collections/collections.module';
 import { Collection } from './collections/collection.entity';
-import { CollectionItemsModule } from './items/collection-items.module';
+import { ItemsModule } from './items/items.module';
 import { Item } from './items/item.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comment.entity';
@@ -34,7 +34,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     CollectionsModule,
-    CollectionItemsModule,
+    ItemsModule,
     CommentsModule,
     TagsModule,
     ThemesModule,

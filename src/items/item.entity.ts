@@ -43,7 +43,7 @@ export class Item {
   comments: Comment[];
 
   @Column()
-  creator: string;
+  creatorId: string;
 
   @Column({ default: null })
   createDate: string | null;

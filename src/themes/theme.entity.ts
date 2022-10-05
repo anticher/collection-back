@@ -1,5 +1,5 @@
 import { Collection } from 'src/collections/collection.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class Theme {
@@ -12,6 +12,6 @@ export class Theme {
   @Column({ default: null })
   createDate: string | null;
 
-  @ManyToMany(() => Collection, (collection) => collection.theme)
+  @OneToMany(() => Collection, (collection) => collection.theme)
   collections: Collection[];
 }

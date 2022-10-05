@@ -9,4 +9,6 @@ export class CreateCollectionDto {
   theme: string;
   @IsString()
   ownerId: string;
+  @IsString()
+  creatorId: string;
 }

@@ -8,8 +8,10 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { PermissionInterceptor } from 'src/auth/permission.interceptor';
 import { Collection } from './collection.entity';
 import { CreateCollectionDto } from './dto/create.dto';
 import { CollectionsService } from './services/collections.service';
@@ -38,10 +40,12 @@ export class CollectionsController {
 
   @Post('add-collection')
   @UseGuards(JwtAuthGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async addCollection(
     @Body() collection: CreateCollectionDto,
   ): Promise<Collection> {
+    console.log('controller');
     return await this.collectionsService.addCollection(collection);
   }
 

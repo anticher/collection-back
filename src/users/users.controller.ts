@@ -11,7 +11,7 @@ import {
 import { CreateUserDto } from './dto/create.dto';
 import { User } from './user.entity';
 import { UsersService } from './services/users.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/auth/roles.decorator';
 import { Role } from 'src/auth/role.enum';
 

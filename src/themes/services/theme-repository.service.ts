@@ -12,7 +12,11 @@ export class ThemesRepositoryService {
   ) {}
 
   public async getAll(): Promise<Theme[]> {
-    return await this.themesRepository.find();
+    return await this.themesRepository.find({
+      relations: {
+        collections: true,
+      },
+    });
   }
 
   public async addTheme(theme: CreateThemeDto): Promise<Theme> {

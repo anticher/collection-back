@@ -38,11 +38,12 @@ export class CollectionsRepositoryService {
       name: collection.theme,
     });
     console.log(theme);
-    const newCollection = this.collectionsRepository.create({
+    const newCollection = {
       ...collection,
       theme,
       createDate: Date.now().toString(),
-    });
+    };
+    console.log(newCollection);
     return await this.collectionsRepository.save(newCollection);
   }
 

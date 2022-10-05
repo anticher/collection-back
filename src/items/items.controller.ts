@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
 import { Item } from './item.entity';
 import { CreateItemDto } from './dto/create.dto';
-import { ItemsService } from './services/collection-items.service';
+import { ItemsService } from './services/items.service';
 
 @Controller('v1/collection-items')
 export class ItemsController {

@@ -7,8 +7,6 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -22,10 +20,7 @@ export class Collection {
   @Column()
   description: string;
 
-  @ManyToMany(() => Theme, (theme) => theme.collections)
-  @JoinTable({
-    name: 'collection_theme',
-  })
+  @ManyToOne(() => Theme, (theme) => theme.collections)
   theme: Theme;
 
   @Column({ default: null })
@@ -40,7 +35,7 @@ export class Collection {
   ownerId: string;
 
   @Column()
-  creator: string;
+  creatorId: string;
 
   @Column({ default: null })
   createDate: string | null;
