@@ -29,13 +29,13 @@ export class Collection {
   @OneToMany(() => Item, (item) => item.collection)
   items: Item[];
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.username)
   owner: User;
   @Column()
-  ownerId: string;
+  ownerName: string;
 
   @Column()
-  creatorId: string;
+  creatorName: string;
 
   @Column({ default: null })
   createDate: string | null;

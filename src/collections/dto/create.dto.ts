@@ -8,7 +8,7 @@ export class CreateCollectionDto {
   @IsString()
   theme: string;
   @IsString()
-  ownerId: string;
+  ownerName: string;
   @IsString()
-  creatorId: string;
+  creatorName: string;
 }

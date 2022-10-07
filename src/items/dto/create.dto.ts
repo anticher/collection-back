@@ -8,7 +8,7 @@ export class CreateItemDto {
   @IsString()
   collectionId: string;
   @IsString()
-  ownerId: string;
+  ownerName: string;
   @IsString()
-  creatorId: string;
+  creatorName: string;
 }

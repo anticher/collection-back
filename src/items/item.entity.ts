@@ -34,16 +34,16 @@ export class Item {
   @Column({ default: null })
   likes: string | null;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.username)
   owner: User;
   @Column()
-  ownerId: string;
+  ownerName: string;
 
   @OneToMany(() => Comment, (comment) => comment.item)
   comments: Comment[];
 
   @Column()
-  creatorId: string;
+  creatorName: string;
 
   @Column({ default: null })
   createDate: string | null;

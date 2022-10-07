@@ -13,6 +13,14 @@ export class CollectionsService {
     return await this.collectionsRepositoryService.getAll();
   }
 
+  public async getByOwner(ownerName: string): Promise<Collection[]> {
+    return await this.collectionsRepositoryService.getByOwner(ownerName);
+  }
+
+  public async getOneById(id: string): Promise<Collection> {
+    return await this.collectionsRepositoryService.getOneById(id);
+  }
+
   public async getLargest(count: string): Promise<Collection[]> {
     return await this.collectionsRepositoryService.getLargest(count);
   }

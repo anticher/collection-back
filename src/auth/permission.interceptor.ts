@@ -12,14 +12,14 @@ import { Observable } from 'rxjs';
 export class PermissionInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const { user, body } = context.switchToHttp().getRequest();
-    const { id, role } = user;
-    const { ownerId, creatorId } = body;
+    const { username, role } = user;
+    const { ownerName, creatorName } = body;
     console.log(user);
     console.log(body);
-    if (creatorId !== id) {
+    if (creatorName !== username) {
       throw new BadRequestException();
     }
-    if (ownerId !== id && role !== 'admin') {
+    if (ownerName !== username && role !== 'admin') {
       throw new ForbiddenException();
     }
     return next.handle();

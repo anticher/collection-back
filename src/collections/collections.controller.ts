@@ -26,6 +26,18 @@ export class CollectionsController {
     return this.collectionsService.getAll();
   }
 
+  @Get('/:owner')
+  @HttpCode(200)
+  public getByOwner(@Param('owner') ownerName: string): Promise<Collection[]> {
+    return this.collectionsService.getByOwner(ownerName);
+  }
+
+  @Get('one-by-id/:id')
+  @HttpCode(200)
+  public getOneById(@Param('id') id: string): Promise<Collection> {
+    return this.collectionsService.getOneById(id);
+  }
+
   @Get('largest')
   @HttpCode(200)
   public getLargest(@Query('count') count?: string): Promise<Collection[]> {

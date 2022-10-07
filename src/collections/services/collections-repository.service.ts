@@ -23,6 +23,30 @@ export class CollectionsRepositoryService {
     });
   }
 
+  public async getByOwner(ownerName: string): Promise<Collection[]> {
+    return await this.collectionsRepository.find({
+      where: {
+        ownerName,
+      },
+      relations: {
+        items: true,
+        theme: true,
+      },
+    });
+  }
+
+  public async getOneById(id: string): Promise<Collection> {
+    return await this.collectionsRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        items: true,
+        theme: true,
+      },
+    });
+  }
+
   public async getLargest(count: string): Promise<Collection[]> {
     return await this.collectionsRepository.find();
   }

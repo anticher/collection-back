@@ -33,7 +33,7 @@ export class ItemsRepositoryService {
     const newCollectionItem = this.collectionItemsRepository.create({
       name: collectionItem.name,
       collectionId: collectionItem.collectionId,
-      ownerId: collectionItem.ownerId,
+      ownerName: collectionItem.ownerName,
       tags,
       createDate: Date.now().toString(),
     });
