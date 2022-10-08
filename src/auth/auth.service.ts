@@ -5,6 +5,8 @@ import { User } from 'src/users/user.entity';
 import { LoginDto } from './dto/login.dto';
 import { UsersRepositoryService } from 'src/users/services/users-repository.service';
 import { RegistrationDto } from './dto/registration.dto';
+import { AuthResponse } from './models/login-response.model';
+import { RegistrationResponse } from './models/registration-response.model';
 
 @Injectable()
 export class AuthService {
@@ -13,18 +15,25 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async registration(registrationDto: RegistrationDto): Promise<User> {
+  public async registration(
+    registrationDto: RegistrationDto,
+  ): Promise<RegistrationResponse> {
     registrationDto.password = await bcrypt.hash(
       registrationDto.password,
       +process.env.PASSWORD_SALT_OR_ROUNDS,
     );
-    const user = await this.usersRepositoryService.addUser(registrationDto);
-    return user;
+    try {
+      const user = await this.usersRepositoryService.addUser(registrationDto);
+      const { username, email } = user;
+      return { username, email };
+    } catch (e) {
+      if (e.code === 'ER_DUP_ENTRY') {
+        throw new BadRequestException('username or email is already exist');
+      }
+    }
   }
 
-  public async login(
-    loginDto: LoginDto,
-  ): Promise<{ accessToken: string } | string> {
+  public async login(loginDto: LoginDto): Promise<AuthResponse> {
     const user = await this.usersRepositoryService.getUserByName(
       loginDto.username,
     );
@@ -38,7 +47,9 @@ export class AuthService {
     if (!isPasswordsMatch) {
       throw new BadRequestException('Wrong credentials');
     }
-    return this.getToken(user);
+    const tokenObject = this.getToken(user);
+    const { username, id, role } = user;
+    return { username, userId: id, role, ...tokenObject };
   }
 
   private getToken(user: User): { accessToken: string } {
