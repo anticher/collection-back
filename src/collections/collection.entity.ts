@@ -8,6 +8,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { customFieldTypeEnum } from './enum/custom-field-type.enum';
 
 @Entity()
 export class Collection {
@@ -25,6 +26,9 @@ export class Collection {
 
   @Column({ default: null })
   image: string | null;
+
+  // @Column()
+  // custom: { fieldType: customFieldTypeEnum; title: string }[];
 
   @OneToMany(() => Item, (item) => item.collection)
   items: Item[];

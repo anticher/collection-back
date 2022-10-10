@@ -57,7 +57,6 @@ export class CollectionsController {
   public async addCollection(
     @Body() collection: CreateCollectionDto,
   ): Promise<Collection> {
-    console.log('controller');
     return await this.collectionsService.addCollection(collection);
   }
 

@@ -67,6 +67,8 @@ export class CollectionsRepositoryService {
       theme,
       createDate: Date.now().toString(),
     };
+    console.log(newCollection.custom);
+    delete newCollection.custom;
     console.log(newCollection);
     return await this.collectionsRepository.save(newCollection);
   }
