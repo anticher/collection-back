@@ -7,12 +7,14 @@ import { UsersRepositoryService } from 'src/users/services/users-repository.serv
 import { RegistrationDto } from './dto/registration.dto';
 import { AuthResponse } from './models/login-response.model';
 import { RegistrationResponse } from './models/registration-response.model';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersRepositoryService: UsersRepositoryService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService,
   ) {}
 
   public async registration(
@@ -33,7 +35,12 @@ export class AuthService {
     }
   }
 
-  public async login(loginDto: LoginDto): Promise<AuthResponse> {
+  public async login(loginDto: LoginDto): Promise<{
+    username: string;
+    userId: string;
+    role: string;
+    cookieWithJwt: string;
+  }> {
     const user = await this.usersRepositoryService.getUserByName(
       loginDto.username,
     );
@@ -47,21 +54,19 @@ export class AuthService {
     if (!isPasswordsMatch) {
       throw new BadRequestException('Wrong credentials');
     }
-    const tokenObject = this.getToken(user);
+    const cookieWithJwt = this.getCookieWithJwtToken(user);
     const { username, id, role } = user;
-    return { username, userId: id, role, ...tokenObject };
+    return { username, userId: id, role, cookieWithJwt };
   }
 
-  private getToken(user: User): { accessToken: string } {
+  private getCookieWithJwtToken(user: User): string {
     const payload = {
       username: user.username,
       role: user.role,
       id: user.id,
     };
-    return {
-      accessToken: this.jwtService.sign(payload, {
-        secret: process.env.ACCESS_TOKEN_SECRET_KEY,
-      }),
-    };
+    const token = this.jwtService.sign(payload);
+    console.log(this.configService.get('ACCESS_TOKEN_EXPIRATION_TIME'));
+    return `Authorization=${token}; HttpOnly; Path=/; Max-Age=6000`;
   }
 }
