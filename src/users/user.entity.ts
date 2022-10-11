@@ -1,5 +1,5 @@
 import { Item } from 'src/items/item.entity';
-import { Collection } from 'src/collections/collection.entity';
+import { Collection } from 'src/collections/entities/collection.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Role } from 'src/auth/role.enum';

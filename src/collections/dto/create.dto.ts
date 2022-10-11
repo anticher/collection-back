@@ -13,5 +13,5 @@ export class CreateCollectionDto {
   @IsString()
   creatorName: string;
   @IsArray()
-  custom: { fieldType: customFieldTypeEnum; title: string }[];
+  customFields: { fieldType: customFieldTypeEnum; title: string }[];
 }

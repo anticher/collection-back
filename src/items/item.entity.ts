@@ -1,4 +1,5 @@
-import { Collection } from 'src/collections/collection.entity';
+import { Collection } from 'src/collections/entities/collection.entity';
+import { CustomFieldValue } from 'src/collections/entities/custom-field-value.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Tag } from 'src/tags/tag.entity';
 import { User } from 'src/users/user.entity';
@@ -30,6 +31,11 @@ export class Item {
   collection: Collection;
   @Column()
   collectionId: string;
+
+  @ManyToOne(() => CustomFieldValue, (customFieldValue) => customFieldValue.id)
+  customFieldValues: CustomFieldValue;
+  @Column()
+  CustomFieldId: string;
 
   @Column({ default: null })
   likes: string | null;

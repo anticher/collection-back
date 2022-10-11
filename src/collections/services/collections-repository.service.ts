@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Theme } from 'src/themes/theme.entity';
 import { Repository } from 'typeorm';
-import { Collection } from '../collection.entity';
+import { Collection } from '../entities/collection.entity';
 import { CreateCollectionDto } from '../dto/create.dto';
+import { CustomFieldTitle } from '../entities/custom-field-title.entity';
 
 @Injectable()
 export class CollectionsRepositoryService {
@@ -12,6 +13,8 @@ export class CollectionsRepositoryService {
     private collectionsRepository: Repository<Collection>,
     @InjectRepository(Theme)
     private ThemesRepository: Repository<Theme>,
+    @InjectRepository(CustomFieldTitle)
+    private CustomFieldTitlesRepository: Repository<CustomFieldTitle>,
   ) {}
 
   public async getAll(): Promise<Collection[]> {
@@ -61,15 +64,23 @@ export class CollectionsRepositoryService {
     const theme = await this.ThemesRepository.findOneBy({
       name: collection.theme,
     });
-    console.log(theme);
     const newCollection = {
       ...collection,
       theme,
       createDate: Date.now().toString(),
     };
-    console.log(newCollection.custom);
-    delete newCollection.custom;
-    console.log(newCollection);
+    const createdCollection = await this.collectionsRepository.save(
+      newCollection,
+    );
+    const customFieldsPromise = collection.customFields.map((customField) => {
+      return this.CustomFieldTitlesRepository.save({
+        fieldType: customField.fieldType,
+        fieldName: customField.title,
+        collectionId: createdCollection.id,
+        createDate: Date.now().toString(),
+      });
+    });
+    const customFields = await Promise.all(customFieldsPromise);
     return await this.collectionsRepository.save(newCollection);
   }
 

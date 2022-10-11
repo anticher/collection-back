@@ -1,5 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { User } from 'src/users/user.entity';
+import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegistrationDto } from './dto/registration.dto';
@@ -18,7 +17,15 @@ export class AuthController {
   ): Promise<Response<AuthResponse>> {
     const result = await this.authService.login(loginDto);
     response.setHeader('Set-Cookie', result.cookieWithJwt);
+    delete result.cookieWithJwt;
     return response.send(result);
+  }
+
+  @Post('logout')
+  async logOut(@Res() response: Response) {
+    const newCookie = this.authService.getCookieForLogOut();
+    response.setHeader('Set-Cookie', newCookie);
+    return response.sendStatus(200);
   }
 
   @Post('registration')

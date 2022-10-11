@@ -5,7 +5,6 @@ import { User } from 'src/users/user.entity';
 import { LoginDto } from './dto/login.dto';
 import { UsersRepositoryService } from 'src/users/services/users-repository.service';
 import { RegistrationDto } from './dto/registration.dto';
-import { AuthResponse } from './models/login-response.model';
 import { RegistrationResponse } from './models/registration-response.model';
 import { ConfigService } from '@nestjs/config';
 
@@ -66,7 +65,10 @@ export class AuthService {
       id: user.id,
     };
     const token = this.jwtService.sign(payload);
-    console.log(this.configService.get('ACCESS_TOKEN_EXPIRATION_TIME'));
-    return `Authorization=${token}; HttpOnly; Path=/; Max-Age=6000`;
+    return `Authorization=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=6000`;
+  }
+
+  public getCookieForLogOut() {
+    return `Authorization=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0`;
   }
 }

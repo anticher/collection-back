@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Collection } from '../collection.entity';
+import { Collection } from '../entities/collection.entity';
 import { CreateCollectionDto } from '../dto/create.dto';
 import { CollectionsRepositoryService } from './collections-repository.service';
 

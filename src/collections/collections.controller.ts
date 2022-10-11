@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PermissionInterceptor } from 'src/auth/permission.interceptor';
-import { Collection } from './collection.entity';
+import { Collection } from './entities/collection.entity';
 import { CreateCollectionDto } from './dto/create.dto';
 import { CollectionsService } from './services/collections.service';
 
@@ -57,6 +57,7 @@ export class CollectionsController {
   public async addCollection(
     @Body() collection: CreateCollectionDto,
   ): Promise<Collection> {
+    console.log('1');
     return await this.collectionsService.addCollection(collection);
   }
 

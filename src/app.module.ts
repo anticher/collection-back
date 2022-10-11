@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { User } from './users/user.entity';
 import { UsersModule } from './users/users.module';
 import { CollectionsModule } from './collections/collections.module';
-import { Collection } from './collections/collection.entity';
+import { Collection } from './collections/entities/collection.entity';
 import { ItemsModule } from './items/items.module';
 import { Item } from './items/item.entity';
 import { CommentsModule } from './comments/comments.module';
@@ -16,6 +16,8 @@ import { Tag } from './tags/tag.entity';
 import { ThemesModule } from './themes/themes.module';
 import { Theme } from './themes/theme.entity';
 import { AuthModule } from './auth/auth.module';
+import { CustomFieldTitle } from './collections/entities/custom-field-title.entity';
+import { CustomFieldValue } from './collections/entities/custom-field-value.entity';
 
 @Module({
   imports: [
@@ -29,7 +31,16 @@ import { AuthModule } from './auth/auth.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Collection, Item, Comment, Tag, Theme, User],
+      entities: [
+        Collection,
+        Item,
+        Comment,
+        Tag,
+        Theme,
+        User,
+        CustomFieldTitle,
+        CustomFieldValue,
+      ],
       synchronize: true,
     }),
     UsersModule,
