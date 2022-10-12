@@ -8,7 +8,7 @@ import { UsersModule } from './users/users.module';
 import { CollectionsModule } from './collections/collections.module';
 import { Collection } from './collections/entities/collection.entity';
 import { ItemsModule } from './items/items.module';
-import { Item } from './items/item.entity';
+import { Item } from './items/entities/item.entity';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comment.entity';
 import { TagsModule } from './tags/tags.module';
@@ -17,7 +17,7 @@ import { ThemesModule } from './themes/themes.module';
 import { Theme } from './themes/theme.entity';
 import { AuthModule } from './auth/auth.module';
 import { CustomFieldTitle } from './collections/entities/custom-field-title.entity';
-import { CustomFieldValue } from './collections/entities/custom-field-value.entity';
+import { CustomFieldValue } from './items/entities/custom-field-value.entity';
 
 @Module({
   imports: [

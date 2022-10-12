@@ -1,5 +1,5 @@
 import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
-import { Item } from './item.entity';
+import { Item } from './entities/item.entity';
 import { CreateItemDto } from './dto/create.dto';
 import { ItemsService } from './services/items.service';
 

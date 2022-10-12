@@ -1,4 +1,6 @@
-import { IsString } from 'class-validator';
+import { IsObject, IsString } from 'class-validator';
+
+export type CustomFieldValue = number | string | boolean | Date;
 
 export class CreateItemDto {
   @IsString()
@@ -11,4 +13,6 @@ export class CreateItemDto {
   ownerName: string;
   @IsString()
   creatorName: string;
+  @IsObject()
+  customFields: Record<string, CustomFieldValue>;
 }

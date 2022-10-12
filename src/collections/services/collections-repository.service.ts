@@ -34,6 +34,7 @@ export class CollectionsRepositoryService {
       relations: {
         items: true,
         theme: true,
+        customFieldTitles: true,
       },
     });
   }
@@ -46,6 +47,7 @@ export class CollectionsRepositoryService {
       relations: {
         items: true,
         theme: true,
+        customFieldTitles: true,
       },
     });
   }

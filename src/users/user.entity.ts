@@ -1,4 +1,4 @@
-import { Item } from 'src/items/item.entity';
+import { Item } from 'src/items/entities/item.entity';
 import { Collection } from 'src/collections/entities/collection.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';

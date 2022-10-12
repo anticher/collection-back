@@ -1,5 +1,5 @@
 import { Collection } from 'src/collections/entities/collection.entity';
-import { CustomFieldValue } from 'src/collections/entities/custom-field-value.entity';
+import { CustomFieldValue } from 'src/items/entities/custom-field-value.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Tag } from 'src/tags/tag.entity';
 import { User } from 'src/users/user.entity';
@@ -25,7 +25,7 @@ export class Item {
   @JoinTable({
     name: 'item_tag',
   })
-  tags: Tag[];
+  tagNames: Tag[];
 
   @ManyToOne(() => Collection, (collection) => collection.id)
   collection: Collection;
@@ -34,8 +34,6 @@ export class Item {
 
   @ManyToOne(() => CustomFieldValue, (customFieldValue) => customFieldValue.id)
   customFieldValues: CustomFieldValue;
-  @Column()
-  CustomFieldId: string;
 
   @Column({ default: null })
   likes: string | null;

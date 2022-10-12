@@ -1,4 +1,4 @@
-import { Item } from 'src/items/item.entity';
+import { Item } from 'src/items/entities/item.entity';
 import { Theme } from 'src/themes/theme.entity';
 import { User } from 'src/users/user.entity';
 import {
@@ -30,7 +30,7 @@ export class Collection {
 
   @OneToMany(
     () => CustomFieldTitle,
-    (customFieldTitle) => customFieldTitle.collectionId,
+    (customFieldTitle) => customFieldTitle.collection,
   )
   customFieldTitles: CustomFieldTitle[];
 

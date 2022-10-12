@@ -1,6 +1,6 @@
-import { Item } from 'src/items/item.entity';
+import { Item } from 'src/items/entities/item.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { CustomFieldTitle } from './custom-field-title.entity';
+import { CustomFieldTitle } from '../../collections/entities/custom-field-title.entity';
 
 @Entity()
 export class CustomFieldValue {
@@ -12,16 +12,12 @@ export class CustomFieldValue {
 
   @ManyToOne(() => Item, (item) => item.customFieldValues)
   item: Item;
-  @Column()
-  itemId: string;
 
   @ManyToOne(
     () => CustomFieldTitle,
     (customFieldTitle) => customFieldTitle.customFieldValues,
   )
   customFieldTitle: CustomFieldTitle;
-  @Column()
-  customFieldTitleId: string;
 
   @Column()
   creatorName: string;

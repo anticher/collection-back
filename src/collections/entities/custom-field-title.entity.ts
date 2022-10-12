@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { customFieldTypeEnum } from '../enum/custom-field-type.enum';
 import { Collection } from './collection.entity';
-import { CustomFieldValue } from './custom-field-value.entity';
+import { CustomFieldValue } from '../../items/entities/custom-field-value.entity';
 
 @Entity()
 export class CustomFieldTitle {
