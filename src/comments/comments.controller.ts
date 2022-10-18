@@ -6,7 +6,7 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CookieAuthenticationGuard } from 'src/auth/guards/cookie-auth.guard';
 import { Comment } from './comment.entity';
 import { CreateCommentDto } from './dto/create.dto';
 import { CommentsService } from './services/comments.service';
@@ -22,7 +22,7 @@ export class CommentsController {
   }
 
   @Post('add-comment')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)
   public async addCollectionItem(
     @Body() comment: CreateCommentDto,

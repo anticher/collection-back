@@ -10,11 +10,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PermissionInterceptor } from 'src/auth/permission.interceptor';
 import { Collection } from './entities/collection.entity';
 import { CreateCollectionDto } from './dto/create.dto';
 import { CollectionsService } from './services/collections.service';
+import { CookieAuthenticationGuard } from 'src/auth/guards/cookie-auth.guard';
 
 @Controller('v1/collections')
 export class CollectionsController {
@@ -51,7 +51,7 @@ export class CollectionsController {
   }
 
   @Post('add-collection')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthenticationGuard)
   @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async addCollection(
@@ -62,7 +62,8 @@ export class CollectionsController {
   }
 
   @Delete('delete-collection/:id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(204)
   public async deleteCollection(@Param('id') id: string): Promise<void> {
     return await this.collectionsService.deleteCollection(id);

@@ -17,6 +17,10 @@ export class UsersService {
     return await this.usersRepositoryService.getUserByName(name);
   }
 
+  public async getUserById(id: string): Promise<User> {
+    return await this.usersRepositoryService.getUserById(id);
+  }
+
   public async addUser(user: CreateUserDto): Promise<User> {
     return await this.usersRepositoryService.addUser(user);
   }

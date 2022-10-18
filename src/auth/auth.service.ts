@@ -1,7 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/user.entity';
 import { LoginDto } from './dto/login.dto';
 import { UsersRepositoryService } from 'src/users/services/users-repository.service';
 import { RegistrationDto } from './dto/registration.dto';
@@ -12,7 +10,6 @@ import { ConfigService } from '@nestjs/config';
 export class AuthService {
   constructor(
     private readonly usersRepositoryService: UsersRepositoryService,
-    private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
 
@@ -21,7 +18,6 @@ export class AuthService {
   ): Promise<RegistrationResponse> {
     registrationDto.password = await bcrypt.hash(
       registrationDto.password,
-      // +process.env.PASSWORD_SALT_OR_ROUNDS,
       +this.configService.get('PASSWORD_SALT_OR_ROUNDS'),
     );
     try {
@@ -35,12 +31,7 @@ export class AuthService {
     }
   }
 
-  public async login(loginDto: LoginDto): Promise<{
-    username: string;
-    userId: string;
-    role: string;
-    cookieWithJwt: string;
-  }> {
+  public async getAuthenticatedUser(loginDto: LoginDto) {
     const user = await this.usersRepositoryService.getUserByName(
       loginDto.username,
     );
@@ -54,24 +45,7 @@ export class AuthService {
     if (!isPasswordsMatch) {
       throw new BadRequestException('Wrong credentials');
     }
-    const cookieWithJwt = this.getCookieWithJwtToken(user);
     const { username, id, role } = user;
-    return { username, userId: id, role, cookieWithJwt };
-  }
-
-  private getCookieWithJwtToken(user: User): string {
-    const payload = {
-      username: user.username,
-      role: user.role,
-      id: user.id,
-    };
-    const token = this.jwtService.sign(payload);
-    return `Authorization=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${this.configService.get(
-      'ACCESS_TOKEN_EXPIRATION_TIME',
-    )}`;
-  }
-
-  public getCookieForLogOut() {
-    return `Authorization=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0`;
+    return { username, id, role };
   }
 }

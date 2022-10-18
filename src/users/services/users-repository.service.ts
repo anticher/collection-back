@@ -24,6 +24,10 @@ export class UsersRepositoryService {
     return await this.usersRepository.findOneBy({ username });
   }
 
+  public async getUserById(id: string): Promise<User> {
+    return await this.usersRepository.findOneBy({ id });
+  }
+
   public async addUser(user: CreateUserDto): Promise<User> {
     const { username, email, password } = user;
     const newUser = {

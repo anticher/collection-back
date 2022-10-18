@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
 import { ConfigModule } from '@nestjs/config';
+import { LocalSerializer } from './local.serializer';
+import { LocalStrategy } from './local.strategy';
 
 @Module({
   imports: [
@@ -15,14 +15,8 @@ import { ConfigModule } from '@nestjs/config';
     }),
     UsersModule,
     PassportModule,
-    JwtModule.register({
-      secret: process.env.ACCESS_TOKEN_SECRET_KEY,
-      signOptions: {
-        expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_TIME + 's',
-      },
-    }),
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, LocalStrategy, LocalSerializer],
   controllers: [AuthController],
 })
 export class AuthModule {}
