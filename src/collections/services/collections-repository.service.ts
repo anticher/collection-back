@@ -20,8 +20,11 @@ export class CollectionsRepositoryService {
   public async getAll(): Promise<Collection[]> {
     return await this.collectionsRepository.find({
       relations: {
-        items: true,
+        items: {
+          tagNames: true,
+        },
         theme: true,
+        customFieldTitles: true,
       },
     });
   }
@@ -32,7 +35,9 @@ export class CollectionsRepositoryService {
         ownerName,
       },
       relations: {
-        items: true,
+        items: {
+          tagNames: true,
+        },
         theme: true,
         customFieldTitles: true,
       },
@@ -45,7 +50,9 @@ export class CollectionsRepositoryService {
         id,
       },
       relations: {
-        items: true,
+        items: {
+          tagNames: true,
+        },
         theme: true,
         customFieldTitles: true,
       },

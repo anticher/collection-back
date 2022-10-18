@@ -27,6 +27,9 @@ export class Item {
   })
   tagNames: Tag[];
 
+  @Column({ default: null })
+  image: string | null;
+
   @ManyToOne(() => Collection, (collection) => collection.id)
   collection: Collection;
   @Column()

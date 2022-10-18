@@ -1,4 +1,4 @@
-import { IsArray, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 import { customFieldTypeEnum } from '../enum/custom-field-type.enum';
 
 export class CreateCollectionDto {
@@ -8,6 +8,9 @@ export class CreateCollectionDto {
   description: string;
   @IsString()
   theme: string;
+  @IsString()
+  @IsOptional()
+  image: string;
   @IsString()
   ownerName: string;
   @IsString()

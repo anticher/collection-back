@@ -21,7 +21,8 @@ export class AuthService {
   ): Promise<RegistrationResponse> {
     registrationDto.password = await bcrypt.hash(
       registrationDto.password,
-      +process.env.PASSWORD_SALT_OR_ROUNDS,
+      // +process.env.PASSWORD_SALT_OR_ROUNDS,
+      +this.configService.get('PASSWORD_SALT_OR_ROUNDS'),
     );
     try {
       const user = await this.usersRepositoryService.addUser(registrationDto);
@@ -65,7 +66,9 @@ export class AuthService {
       id: user.id,
     };
     const token = this.jwtService.sign(payload);
-    return `Authorization=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=6000`;
+    return `Authorization=${token}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${this.configService.get(
+      'ACCESS_TOKEN_EXPIRATION_TIME',
+    )}`;
   }
 
   public getCookieForLogOut() {

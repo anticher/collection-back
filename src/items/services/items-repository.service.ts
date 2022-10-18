@@ -41,25 +41,29 @@ export class ItemsRepositoryService {
       name: collectionItem.name,
       collectionId: collectionItem.collectionId,
       ownerName: collectionItem.ownerName,
+      image: collectionItem.image || null,
       tagNames: tags,
       createDate,
     });
     const item = await this.collectionItemsRepository.save(newCollectionItem);
     const { customFields } = collectionItem;
-    const customFieldsValuesPromise = Object.entries(customFields).map(
-      async ([key, value]) => {
-        const customFieldTitle =
-          await this.CustomFieldTitlesRepository.findOneBy({ id: key });
-        await this.CustomFieldValuesRepository.save({
-          fieldValue: value.toString(),
-          item,
-          customFieldTitle,
-          creatorName: item.creatorName,
-          createDate,
-        });
-      },
-    );
-    await Promise.all(customFieldsValuesPromise);
+    if (customFields) {
+      const customFieldsValuesPromise = Object.entries(customFields).map(
+        async ([key, value]) => {
+          const customFieldTitle =
+            await this.CustomFieldTitlesRepository.findOneBy({ id: key });
+          await this.CustomFieldValuesRepository.save({
+            fieldValue: value.toString(),
+            item,
+            customFieldTitle,
+            creatorName: item.creatorName,
+            createDate,
+          });
+        },
+      );
+      await Promise.all(customFieldsValuesPromise);
+    }
+
     return await this.collectionItemsRepository.findOneBy({ id: item.id });
   }
 }

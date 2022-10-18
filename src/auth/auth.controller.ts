@@ -1,10 +1,19 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegistrationDto } from './dto/registration.dto';
 import { AuthResponse } from './models/login-response.model';
 import { RegistrationResponse } from './models/registration-response.model';
-import { Response } from 'express';
+import { Response, Request } from 'express';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('v1/auth')
 export class AuthController {
@@ -33,5 +42,14 @@ export class AuthController {
     @Body() registrationDto: RegistrationDto,
   ): Promise<RegistrationResponse> {
     return await this.authService.registration(registrationDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('check-auth')
+  async checkAuth(@Req() request: Request) {
+    console.log(request.user);
+    // console.log('ggg');
+    // console.log(request.headers);
+    return request.user;
   }
 }
