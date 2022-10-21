@@ -13,10 +13,10 @@ export class PermissionInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const { user, body } = context.switchToHttp().getRequest();
     const { username, role } = user;
-    const { ownerName, creatorName } = body;
+    const { ownerName, username: actionSourceUsername } = body;
     console.log(user);
     console.log(body);
-    if (creatorName !== username) {
+    if (actionSourceUsername !== username) {
       throw new BadRequestException();
     }
     if (ownerName !== username && role !== 'admin') {

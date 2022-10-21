@@ -30,10 +30,14 @@ export class Collection {
   @OneToMany(
     () => CustomFieldTitle,
     (customFieldTitle) => customFieldTitle.collection,
+    { onDelete: 'CASCADE', onUpdate: 'CASCADE' },
   )
   customFieldTitles: CustomFieldTitle[];
 
-  @OneToMany(() => Item, (item) => item.collection)
+  @OneToMany(() => Item, (item) => item.collection, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   items: Item[];
 
   @ManyToOne(() => User, (user) => user.username)

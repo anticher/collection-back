@@ -41,6 +41,7 @@ export class ItemsRepositoryService {
       name: collectionItem.name,
       collectionId: collectionItem.collectionId,
       ownerName: collectionItem.ownerName,
+      creatorName: collectionItem.username,
       image: collectionItem.image || null,
       tagNames: tags,
       createDate,

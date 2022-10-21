@@ -15,7 +15,7 @@ export class CreateItemDto {
   @IsString()
   ownerName: string;
   @IsString()
-  creatorName: string;
+  username: string;
   @IsObject()
   @IsOptional()
   customFields: Record<string, CustomFieldValue>;

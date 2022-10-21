@@ -16,6 +16,10 @@ export class CustomFieldValue {
   @ManyToOne(
     () => CustomFieldTitle,
     (customFieldTitle) => customFieldTitle.customFieldValues,
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
   )
   customFieldTitle: CustomFieldTitle;
 

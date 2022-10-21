@@ -5,6 +5,13 @@ import { Repository } from 'typeorm';
 import { Collection } from '../entities/collection.entity';
 import { CreateCollectionDto } from '../dto/create.dto';
 import { CustomFieldTitle } from '../entities/custom-field-title.entity';
+import { UpdateCollectionDescriptionDto } from '../dto/update-description.dto';
+import { UpdateCollectionNameDto } from '../dto/update-name.dto';
+import { UpdateCollectionCustomFieldTitleDto } from '../dto/update-custom-field-title.dto';
+import { DeleteCollectionCustomFieldDto } from '../dto/delete-custom-field.dto';
+import { UpdateCollectionThemeDto } from '../dto/update-theme.dto';
+import { DeleteCollectionDto } from '../dto/delete-collection.dto';
+import { UpdateCollectionImageDto } from '../dto/update-image.dto';
 
 @Injectable()
 export class CollectionsRepositoryService {
@@ -76,6 +83,7 @@ export class CollectionsRepositoryService {
     const newCollection = {
       ...collection,
       theme,
+      createdBy: collection.username,
       createDate: Date.now().toString(),
     };
     const createdCollection = await this.collectionsRepository.save(
@@ -86,14 +94,100 @@ export class CollectionsRepositoryService {
         fieldType: customField.fieldType,
         fieldName: customField.title,
         collectionId: createdCollection.id,
-        createDate: Date.now().toString(),
       });
     });
-    const customFields = await Promise.all(customFieldsPromise);
-    return await this.collectionsRepository.save(newCollection);
+    await Promise.all(customFieldsPromise);
+    return await this.collectionsRepository.findOneBy({
+      id: createdCollection.id,
+    });
+    return await this.collectionsRepository.save(createdCollection);
   }
 
-  public async deleteCollection(id: string): Promise<number> {
-    return (await this.collectionsRepository.delete(id)).affected;
+  public async updateCollectionDescription(
+    updateCollectionDescriptionDto: UpdateCollectionDescriptionDto,
+  ): Promise<number> {
+    const { id, description } = updateCollectionDescriptionDto;
+    const result = await this.collectionsRepository
+      .createQueryBuilder()
+      .update(Collection)
+      .set({ description })
+      .where('id = :id', { id })
+      .execute();
+    return result.affected;
+  }
+
+  public async updateCollectionName(
+    updateCollectionNameDto: UpdateCollectionNameDto,
+  ): Promise<number> {
+    const { id, name } = updateCollectionNameDto;
+    const result = await this.collectionsRepository
+      .createQueryBuilder()
+      .update(Collection)
+      .set({ name })
+      .where('id = :id', { id })
+      .execute();
+    return result.affected;
+  }
+
+  public async updateCollectionTheme(
+    updateCollectionThemeDto: UpdateCollectionThemeDto,
+  ): Promise<number> {
+    const { id, themeName } = updateCollectionThemeDto;
+    const theme = await this.ThemesRepository.findOneBy({
+      name: themeName,
+    });
+    const result = await this.collectionsRepository
+      .createQueryBuilder()
+      .update(Collection)
+      .set({ theme })
+      .where('id = :id', { id })
+      .execute();
+    return result.affected;
+  }
+
+  public async updateCollectionImage(
+    updateCollectionImageDto: UpdateCollectionImageDto,
+  ): Promise<number> {
+    const { id } = updateCollectionImageDto;
+    let { image } = updateCollectionImageDto;
+    if (!image) image = null;
+    const result = await this.collectionsRepository
+      .createQueryBuilder()
+      .update(Collection)
+      .set({ image })
+      .where('id = :id', { id })
+      .execute();
+    return result.affected;
+  }
+
+  public async updateCollectionCustomFieldTitle(
+    updateCollectionCustomFieldTitleDto: UpdateCollectionCustomFieldTitleDto,
+  ): Promise<number> {
+    const { id, customFieldTitle } = updateCollectionCustomFieldTitleDto;
+    const result = await this.CustomFieldTitlesRepository.createQueryBuilder()
+      .update(CustomFieldTitle)
+      .set({ fieldName: customFieldTitle })
+      .where('id = :id', { id })
+      .execute();
+    return result.affected;
+  }
+
+  public async deleteCollectionCustomField(
+    deleteCollectionCustomFieldDto: DeleteCollectionCustomFieldDto,
+  ): Promise<number> {
+    const { id } = deleteCollectionCustomFieldDto;
+    const result = await this.CustomFieldTitlesRepository.createQueryBuilder()
+      .delete()
+      .from(CustomFieldTitle)
+      .where('id = :id', { id })
+      .execute();
+    return result.affected;
+  }
+
+  public async deleteCollection(
+    deleteCollectionDto: DeleteCollectionDto,
+  ): Promise<number> {
+    return (await this.collectionsRepository.delete(deleteCollectionDto.id))
+      .affected;
   }
 }

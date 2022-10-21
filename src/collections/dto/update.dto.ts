@@ -1,7 +1,9 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 import { customFieldTypeEnum } from '../enum/custom-field-type.enum';
 
-export class CreateCollectionDto {
+export class UpdateCollectionDto {
+  @IsString()
+  id: string;
   @IsString()
   name: string;
   @IsString()
@@ -15,6 +17,12 @@ export class CreateCollectionDto {
   ownerName: string;
   @IsString()
   username: string;
-  @IsArray()
-  customFields: { fieldType: customFieldTypeEnum; title: string }[];
+  @IsObject()
+  customFields: {
+    [key: string]: {
+      id: string;
+      fieldType: customFieldTypeEnum;
+      title: string;
+    };
+  };
 }
