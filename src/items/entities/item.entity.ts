@@ -30,7 +30,10 @@ export class Item {
   @Column({ default: null })
   image: string | null;
 
-  @ManyToOne(() => Collection, (collection) => collection.id)
+  @ManyToOne(() => Collection, (collection) => collection.id, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   collection: Collection;
   @Column()
   collectionId: string;
