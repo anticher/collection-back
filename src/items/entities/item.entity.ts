@@ -38,8 +38,15 @@ export class Item {
   @Column()
   collectionId: string;
 
-  @ManyToOne(() => CustomFieldValue, (customFieldValue) => customFieldValue.id)
-  customFieldValues: CustomFieldValue;
+  @OneToMany(
+    () => CustomFieldValue,
+    (customFieldValue) => customFieldValue.item,
+    {
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+  )
+  customFieldValues: CustomFieldValue[];
 
   @Column({ default: null })
   likes: string | null;

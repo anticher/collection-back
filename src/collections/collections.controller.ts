@@ -68,18 +68,6 @@ export class CollectionsController {
     return await this.collectionsService.addCollection(collection);
   }
 
-  // @Put('update-collection/:id')
-  // @UseGuards(CookieAuthenticationGuard)
-  // // @UseInterceptors(PermissionInterceptor)
-  // @HttpCode(201)
-  // public async updateCollection(
-  //   @Param('id') id: string,
-  //   @Body() collection: UpdateCollectionDto,
-  // ): Promise<Collection> {
-  //   console.log('proshel');
-  //   return await this.collectionsService.updateCollection(id, collection);
-  // }
-
   @Patch('update-collection-description')
   @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)
@@ -119,7 +107,6 @@ export class CollectionsController {
   public async updateCollectionImage(
     @Body() updateCollectionImageDto: UpdateCollectionImageDto,
   ): Promise<number> {
-    console.log(updateCollectionImageDto);
     return await this.collectionsService.updateCollectionImage(
       updateCollectionImageDto,
     );

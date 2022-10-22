@@ -29,6 +29,9 @@ export class CollectionsRepositoryService {
       relations: {
         items: {
           tagNames: true,
+          customFieldValues: {
+            customFieldTitle: true,
+          },
         },
         theme: true,
         customFieldTitles: true,
@@ -44,6 +47,9 @@ export class CollectionsRepositoryService {
       relations: {
         items: {
           tagNames: true,
+          customFieldValues: {
+            customFieldTitle: true,
+          },
         },
         theme: true,
         customFieldTitles: true,
@@ -59,6 +65,9 @@ export class CollectionsRepositoryService {
       relations: {
         items: {
           tagNames: true,
+          customFieldValues: {
+            customFieldTitle: true,
+          },
         },
         theme: true,
         customFieldTitles: true,

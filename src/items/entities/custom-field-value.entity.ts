@@ -10,16 +10,15 @@ export class CustomFieldValue {
   @Column()
   fieldValue: string;
 
-  @ManyToOne(() => Item, (item) => item.customFieldValues)
+  @ManyToOne(() => Item, (item) => item.customFieldValues, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   item: Item;
 
   @ManyToOne(
     () => CustomFieldTitle,
     (customFieldTitle) => customFieldTitle.customFieldValues,
-    {
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    },
   )
   customFieldTitle: CustomFieldTitle;
 
