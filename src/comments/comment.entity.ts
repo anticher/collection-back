@@ -10,18 +10,15 @@ export class Comment {
   @Column()
   message: string;
 
-  @Column()
-  author: string;
-
   @ManyToOne(() => User, (user) => user.id)
-  owner: User;
+  user: User;
   @Column()
-  ownerId: string;
+  public userId: string;
 
   @ManyToOne(() => Item, (item) => item.id)
   item: Item;
   @Column()
-  itemId: string;
+  public itemId: string;
 
   @Column({ default: null })
   createDate: string | null;

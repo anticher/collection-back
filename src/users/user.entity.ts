@@ -42,6 +42,6 @@ export class User {
   @OneToMany(() => Item, (item) => item.owner)
   items: Item[];
 
-  @OneToMany(() => Comment, (comment) => comment.owner)
+  @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
 }

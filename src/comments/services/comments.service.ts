@@ -13,7 +13,11 @@ export class CommentsService {
     return await this.commentsRepositoryService.getAll();
   }
 
-  public async addComment(comment: CreateCommentDto): Promise<Comment> {
-    return await this.commentsRepositoryService.addComment(comment);
+  public async getByCollectionItemId(id: string): Promise<Comment[]> {
+    return await this.commentsRepositoryService.getByCollectionItemId(id);
+  }
+
+  public async addComment(createCommentDto: CreateCommentDto): Promise<string> {
+    return await this.commentsRepositoryService.addComment(createCommentDto);
   }
 }

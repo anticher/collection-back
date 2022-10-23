@@ -5,10 +5,7 @@ export class CreateCommentDto {
   message: string;
 
   @IsString()
-  author: string;
-
-  @IsString()
-  ownerId: string;
+  userId: string;
 
   @IsString()
   itemId: string;

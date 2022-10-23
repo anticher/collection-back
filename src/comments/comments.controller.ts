@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpCode,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -17,16 +18,24 @@ export class CommentsController {
 
   @Get()
   @HttpCode(200)
-  public getAll(): Promise<Comment[]> {
-    return this.commentsService.getAll();
+  public async getAll(): Promise<Comment[]> {
+    return await this.commentsService.getAll();
+  }
+
+  @Get('by-collection-item-id/:id')
+  @HttpCode(200)
+  public async getByCollectionItemId(
+    @Param('id') id: string,
+  ): Promise<Comment[]> {
+    return await this.commentsService.getByCollectionItemId(id);
   }
 
   @Post('add-comment')
   @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)
   public async addCollectionItem(
-    @Body() comment: CreateCommentDto,
-  ): Promise<Comment> {
-    return await this.commentsService.addComment(comment);
+    @Body() createCommentDto: CreateCommentDto,
+  ): Promise<string> {
+    return await this.commentsService.addComment(createCommentDto);
   }
 }
