@@ -33,7 +33,7 @@ export class CommentsController {
   @Post('add-comment')
   @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)
-  public async addCollectionItem(
+  public async addComment(
     @Body() createCommentDto: CreateCommentDto,
   ): Promise<string> {
     return await this.commentsService.addComment(createCommentDto);

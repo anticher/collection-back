@@ -12,6 +12,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import { Like } from 'src/likes/like.entity';
 
 @Entity()
 export class Item {
@@ -48,15 +49,18 @@ export class Item {
   )
   customFieldValues: CustomFieldValue[];
 
-  @Column({ default: null })
-  likes: string | null;
+  @OneToMany(() => Like, (like) => like.item)
+  likes: Like[];
 
   @ManyToOne(() => User, (user) => user.username)
   owner: User;
   @Column()
   ownerName: string;
 
-  @OneToMany(() => Comment, (comment) => comment.item)
+  @OneToMany(() => Comment, (comment) => comment.item, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   comments: Comment[];
 
   @Column()

@@ -18,6 +18,8 @@ import { Theme } from './themes/theme.entity';
 import { AuthModule } from './auth/auth.module';
 import { CustomFieldTitle } from './collections/entities/custom-field-title.entity';
 import { CustomFieldValue } from './items/entities/custom-field-value.entity';
+import { LikesModule } from './likes/likes.module';
+import { Like } from './likes/like.entity';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import { CustomFieldValue } from './items/entities/custom-field-value.entity';
         Collection,
         Item,
         Comment,
+        Like,
         Tag,
         Theme,
         User,
@@ -50,6 +53,7 @@ import { CustomFieldValue } from './items/entities/custom-field-value.entity';
     TagsModule,
     ThemesModule,
     AuthModule,
+    LikesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

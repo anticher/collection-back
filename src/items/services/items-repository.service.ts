@@ -42,6 +42,7 @@ export class ItemsRepositoryService {
       relations: {
         comments: true,
         tagNames: true,
+        likes: true,
         customFieldValues: {
           customFieldTitle: true,
         },
