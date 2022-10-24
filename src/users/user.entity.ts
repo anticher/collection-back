@@ -22,9 +22,6 @@ export class User {
   @Column({ default: null })
   createDate: string | null;
 
-  @Column({ default: null })
-  lastLoginDate: string | null;
-
   @Column({ default: false })
   isBlocked: boolean;
 

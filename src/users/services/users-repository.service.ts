@@ -12,8 +12,17 @@ export class UsersRepositoryService {
     private usersRepository: Repository<User>,
   ) {}
 
-  public async getList(): Promise<User[]> {
+  public async getList() {
     return await this.usersRepository.find({
+      relations: {
+        collections: true,
+      },
+    });
+  }
+
+  public async getListExcludingPassword() {
+    return await this.usersRepository.find({
+      select: ['id', 'username', 'email', 'isBlocked', 'role', 'createDate'],
       relations: {
         collections: true,
       },
@@ -43,11 +52,10 @@ export class UsersRepositoryService {
     ids,
     isBlocked,
   }: {
-    ids: string;
+    ids: string[];
     isBlocked: boolean;
   }): Promise<void> {
-    const idsArr = ids.split(',');
-    const promiseArr = idsArr.map((id) => {
+    const promiseArr = ids.map((id) => {
       return this.usersRepository.update(id, { isBlocked });
     });
     await Promise.all(promiseArr);
@@ -58,11 +66,10 @@ export class UsersRepositoryService {
     ids,
     isAdmin,
   }: {
-    ids: string;
+    ids: string[];
     isAdmin: boolean;
   }): Promise<void> {
-    const idsArr = ids.split(',');
-    const promiseArr = idsArr.map((id) => {
+    const promiseArr = ids.map((id) => {
       return this.usersRepository.update(id, {
         role: isAdmin ? Role.Admin : Role.User,
       });
@@ -71,16 +78,8 @@ export class UsersRepositoryService {
     return;
   }
 
-  public async updateUserLoginDate(id: string): Promise<void> {
-    await this.usersRepository.update(id, {
-      lastLoginDate: Date.now().toString(),
-    });
-    return;
-  }
-
-  public async deleteUser(ids: string): Promise<void> {
-    const idsArr = ids.split(',');
-    const promiseArr = idsArr.map((id) => {
+  public async deleteUser(ids: string[]): Promise<void> {
+    const promiseArr = ids.map((id) => {
       return this.usersRepository.delete(id);
     });
     await Promise.all(promiseArr);
