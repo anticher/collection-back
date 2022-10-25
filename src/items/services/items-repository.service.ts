@@ -50,7 +50,7 @@ export class ItemsRepositoryService {
     });
   }
 
-  public async searchItems(searchQuery: string) {
+  public async searchItems(searchQuery: string): Promise<Item[]> {
     return await this.collectionItemsRepository
       .createQueryBuilder()
       .select()

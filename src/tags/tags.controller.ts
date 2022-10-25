@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { CreateTagDto } from './dto/create.dto';
 import { TagsService } from './services/tags.service';
 import { Tag } from './tag.entity';
@@ -11,6 +11,12 @@ export class TagsController {
   @HttpCode(200)
   public getAll(): Promise<Tag[]> {
     return this.tagsService.getAll();
+  }
+
+  @Get('one-by-name/:name')
+  @HttpCode(200)
+  public async getOneByName(@Param('name') name: string): Promise<Tag> {
+    return await this.tagsService.getOneByName(name);
   }
 
   @Post('add-tag')

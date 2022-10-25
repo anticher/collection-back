@@ -11,6 +11,10 @@ export class TagsService {
     return await this.tagsRepositoryService.getAll();
   }
 
+  public async getOneByName(name: string): Promise<Tag> {
+    return await this.tagsRepositoryService.getOneByName(name);
+  }
+
   public async addTag(tag: CreateTagDto): Promise<Tag> {
     return await this.tagsRepositoryService.addTag(tag);
   }

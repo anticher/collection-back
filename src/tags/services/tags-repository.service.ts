@@ -15,6 +15,17 @@ export class TagsRepositoryService {
     return await this.tagsRepository.find();
   }
 
+  public async getOneByName(name: string): Promise<Tag> {
+    return await this.tagsRepository.findOne({
+      where: {
+        name,
+      },
+      relations: {
+        collectionItems: true,
+      },
+    });
+  }
+
   public async addTag(tag: CreateTagDto): Promise<Tag> {
     const newTag = {
       ...tag,
