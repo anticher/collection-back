@@ -69,4 +69,8 @@ export class ItemsService {
     }
     return;
   }
+
+  public async searchItems(searchQuery: string) {
+    return await this.itemsRepositoryService.searchItems(searchQuery);
+  }
 }

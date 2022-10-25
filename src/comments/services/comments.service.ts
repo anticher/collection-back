@@ -17,6 +17,10 @@ export class CommentsService {
     return await this.commentsRepositoryService.getByCollectionItemId(id);
   }
 
+  public async searchComments(searchQuery: string) {
+    return await this.commentsRepositoryService.searchComments(searchQuery);
+  }
+
   public async addComment(createCommentDto: CreateCommentDto): Promise<string> {
     return await this.commentsRepositoryService.addComment(createCommentDto);
   }

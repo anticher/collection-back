@@ -30,6 +30,14 @@ export class CommentsRepositoryService {
     });
   }
 
+  public async searchComments(searchQuery: string) {
+    return await this.commentsRepository
+      .createQueryBuilder()
+      .select()
+      .where(`MATCH(message) AGAINST ('${searchQuery}' IN BOOLEAN MODE)`)
+      .getMany();
+  }
+
   public async addComment(createCommentDto: CreateCommentDto): Promise<string> {
     const { userId, message, itemId } = createCommentDto;
     const result = await this.commentsRepository

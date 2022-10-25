@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
+  Index,
 } from 'typeorm';
 import { CustomFieldTitle } from './custom-field-title.entity';
 
@@ -15,9 +16,11 @@ export class Collection {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Index({ fulltext: true })
   @Column()
   name: string;
 
+  @Index({ fulltext: true })
   @Column('text')
   description: string;
 

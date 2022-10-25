@@ -29,6 +29,14 @@ export class ItemsController {
     return await this.itemsService.getAll();
   }
 
+  @Get('search/:searchQuery')
+  @HttpCode(200)
+  public async searchItems(
+    @Param('searchQuery') searchQuery: string,
+  ): Promise<Item[]> {
+    return await this.itemsService.searchItems(searchQuery);
+  }
+
   @Get('one-by-id/:id')
   @HttpCode(200)
   public async getOneById(@Param('id') id: string): Promise<Item> {

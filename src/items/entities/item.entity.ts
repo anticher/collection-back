@@ -11,6 +11,7 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  Index,
 } from 'typeorm';
 import { Like } from 'src/likes/like.entity';
 
@@ -19,6 +20,7 @@ export class Item {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Index({ fulltext: true })
   @Column()
   name: string;
 

@@ -37,6 +37,12 @@ export class CollectionsService {
     return await this.collectionsRepositoryService.getLatest(count);
   }
 
+  public async searchCollections(searchQuery: string) {
+    return await this.collectionsRepositoryService.searchCollections(
+      searchQuery,
+    );
+  }
+
   public async addCollection(
     collection: CreateCollectionDto,
   ): Promise<Collection> {

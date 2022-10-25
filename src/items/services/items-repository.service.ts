@@ -50,6 +50,14 @@ export class ItemsRepositoryService {
     });
   }
 
+  public async searchItems(searchQuery: string) {
+    return await this.collectionItemsRepository
+      .createQueryBuilder()
+      .select()
+      .where('name = :name', { name: searchQuery })
+      .getMany();
+  }
+
   public async addCollectionItem(collectionItem: CreateItemDto): Promise<Item> {
     const tagNamesArray = collectionItem.tagNames.split(',');
     const tags = await this.tagsRepository.findBy({

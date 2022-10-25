@@ -1,11 +1,18 @@
 import { Item } from 'src/items/entities/item.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  Index,
+} from 'typeorm';
 
 @Entity()
 export class Tag {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Index({ fulltext: true })
   @Column({ unique: true })
   name: string;
 

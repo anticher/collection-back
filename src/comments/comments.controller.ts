@@ -30,6 +30,14 @@ export class CommentsController {
     return await this.commentsService.getByCollectionItemId(id);
   }
 
+  @Get('search/:searchQuery')
+  @HttpCode(200)
+  public async searchComments(
+    @Param('searchQuery') searchQuery: string,
+  ): Promise<Comment[]> {
+    return await this.commentsService.searchComments(searchQuery);
+  }
+
   @Post('add-comment')
   @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)

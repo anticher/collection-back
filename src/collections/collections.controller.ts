@@ -58,6 +58,14 @@ export class CollectionsController {
     return this.collectionsService.getLatest(count);
   }
 
+  @Get('search/:searchQuery')
+  @HttpCode(200)
+  public async searchItems(
+    @Param('searchQuery') searchQuery: string,
+  ): Promise<Collection[]> {
+    return await this.collectionsService.searchCollections(searchQuery);
+  }
+
   @Post('add-collection')
   @UseGuards(CookieAuthenticationGuard)
   @UseInterceptors(PermissionInterceptor)

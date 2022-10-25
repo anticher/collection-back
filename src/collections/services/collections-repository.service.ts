@@ -83,6 +83,15 @@ export class CollectionsRepositoryService {
     return await this.collectionsRepository.find();
   }
 
+  public async searchCollections(searchQuery: string) {
+    return await this.collectionsRepository
+      .createQueryBuilder()
+      .select()
+      .where(`MATCH(name) AGAINST ('${searchQuery}' IN BOOLEAN MODE)`)
+      .orWhere(`MATCH(description) AGAINST ('${searchQuery}' IN BOOLEAN MODE)`)
+      .getMany();
+  }
+
   public async addCollection(
     collection: CreateCollectionDto,
   ): Promise<Collection> {
