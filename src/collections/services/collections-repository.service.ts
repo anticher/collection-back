@@ -75,12 +75,16 @@ export class CollectionsRepositoryService {
     });
   }
 
-  public async getLargest(count: string): Promise<Collection[]> {
-    return await this.collectionsRepository.find();
-  }
-
-  public async getLatest(count: string): Promise<Collection[]> {
-    return await this.collectionsRepository.find();
+  public async getLargest(count: number) {
+    return await this.collectionsRepository
+      .createQueryBuilder('collection')
+      .leftJoinAndSelect('collection.items', 'item')
+      .groupBy('collection.id')
+      .select('count(item.id)')
+      .orderBy('count(item.id)', 'DESC')
+      .limit(count)
+      .select('collection.*, count(item.id) AS itemsCount')
+      .execute();
   }
 
   public async searchCollections(searchQuery: string) {

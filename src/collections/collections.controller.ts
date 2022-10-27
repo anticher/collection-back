@@ -7,7 +7,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -46,16 +45,10 @@ export class CollectionsController {
     return this.collectionsService.getOneById(id);
   }
 
-  @Get('largest')
+  @Get('largest/:count')
   @HttpCode(200)
-  public getLargest(@Query('count') count?: string): Promise<Collection[]> {
-    return this.collectionsService.getLargest(count);
-  }
-
-  @Get('latest')
-  @HttpCode(200)
-  public getLatest(@Query('count') count?: string): Promise<Collection[]> {
-    return this.collectionsService.getLatest(count);
+  public getLargest(@Param('count') count: string) {
+    return this.collectionsService.getLargest(+count);
   }
 
   @Get('search/:searchQuery')

@@ -22,6 +22,10 @@ export class ItemsService {
     return await this.itemsRepositoryService.getOneById(id);
   }
 
+  public async getLatestItems(count: number): Promise<Item[]> {
+    return await this.itemsRepositoryService.getLatestItems(count);
+  }
+
   public async updateName(
     updateCollectionItemNameDto: UpdateCollectionItemNameDto,
   ): Promise<number> {

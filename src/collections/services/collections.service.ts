@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Collection } from '../entities/collection.entity';
 import { CreateCollectionDto } from '../dto/create.dto';
 import { CollectionsRepositoryService } from './collections-repository.service';
-import { UpdateCollectionDto } from '../dto/update.dto';
 import { UpdateCollectionDescriptionDto } from '../dto/update-description.dto';
 import { UpdateCollectionNameDto } from '../dto/update-name.dto';
 import { UpdateCollectionCustomFieldTitleDto } from '../dto/update-custom-field-title.dto';
@@ -29,12 +28,8 @@ export class CollectionsService {
     return await this.collectionsRepositoryService.getOneById(id);
   }
 
-  public async getLargest(count: string): Promise<Collection[]> {
+  public async getLargest(count: number) {
     return await this.collectionsRepositoryService.getLargest(count);
-  }
-
-  public async getLatest(count: string): Promise<Collection[]> {
-    return await this.collectionsRepositoryService.getLatest(count);
   }
 
   public async searchCollections(searchQuery: string) {

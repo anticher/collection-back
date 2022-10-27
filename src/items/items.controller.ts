@@ -43,6 +43,12 @@ export class ItemsController {
     return await this.itemsService.getOneById(id);
   }
 
+  @Get('latest/:count')
+  @HttpCode(200)
+  public async getLatestItems(@Param('count') count: string): Promise<Item[]> {
+    return await this.itemsService.getLatestItems(+count);
+  }
+
   @Post('add-collection-item')
   @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)

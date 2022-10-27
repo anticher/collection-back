@@ -50,6 +50,18 @@ export class ItemsRepositoryService {
     });
   }
 
+  public async getLatestItems(count: number): Promise<Item[]> {
+    return await this.collectionItemsRepository.find({
+      relations: {
+        comments: true,
+        tagNames: true,
+        likes: true,
+      },
+      take: count,
+      order: { createDate: 'DESC' },
+    });
+  }
+
   public async searchItems(searchQuery: string): Promise<Item[]> {
     return await this.collectionItemsRepository
       .createQueryBuilder()
