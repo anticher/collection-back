@@ -32,10 +32,14 @@ export class CommentsRepositoryService {
 
   public async searchComments(searchQuery: string) {
     return await this.commentsRepository
-      .createQueryBuilder()
+      .createQueryBuilder('comment')
       .select()
       .where(`MATCH(message) AGAINST ('${searchQuery}' IN BOOLEAN MODE)`)
-      .getMany();
+      .leftJoinAndSelect('comment.item', 'item')
+      .select(
+        'comment.id, item.ownerName, item.collectionId, item.id AS itemId',
+      )
+      .getRawMany();
   }
 
   public async addComment(createCommentDto: CreateCommentDto): Promise<string> {
