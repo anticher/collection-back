@@ -23,6 +23,9 @@ export class CustomFieldTitle {
   @Column()
   fieldName: string;
 
+  @Column()
+  fieldIndex: number;
+
   @OneToMany(
     () => CustomFieldValue,
     (customFieldValue) => customFieldValue.customFieldTitle,

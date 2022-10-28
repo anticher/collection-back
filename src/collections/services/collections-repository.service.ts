@@ -111,13 +111,16 @@ export class CollectionsRepositoryService {
     const createdCollection = await this.collectionsRepository.save(
       newCollection,
     );
-    const customFieldsPromise = collection.customFields.map((customField) => {
-      return this.CustomFieldTitlesRepository.save({
-        fieldType: customField.fieldType,
-        fieldName: customField.title,
-        collectionId: createdCollection.id,
-      });
-    });
+    const customFieldsPromise = collection.customFields.map(
+      (customField, index) => {
+        return this.CustomFieldTitlesRepository.save({
+          fieldType: customField.fieldType,
+          fieldName: customField.title,
+          fieldIndex: index,
+          collectionId: createdCollection.id,
+        });
+      },
+    );
     await Promise.all(customFieldsPromise);
     return await this.collectionsRepository.findOneBy({
       id: createdCollection.id,

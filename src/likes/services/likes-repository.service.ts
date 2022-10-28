@@ -18,7 +18,7 @@ export class LikesRepositoryService {
       .into(Like)
       .values([{ userId, itemId, createDate: Date.now().toString() }])
       .execute();
-    return result.identifiers[0].id;
+    return { id: result.identifiers[0].id };
   }
 
   public async removeLike(id: string) {
