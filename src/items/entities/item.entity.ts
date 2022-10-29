@@ -70,10 +70,4 @@ export class Item {
 
   @Column({ default: null })
   createDate: string | null;
-
-  @Column({ default: null })
-  updateDate: string | null;
-
-  @Column({ default: null })
-  updatedBy: string | null;
 }

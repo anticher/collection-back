@@ -30,7 +30,7 @@ export class User {
     enum: Role,
     default: Role.User,
   })
-  public role: Role;
+  role: Role;
 
   @OneToMany(() => Like, (like) => like.item)
   likes: Like[];

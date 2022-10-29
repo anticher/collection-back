@@ -20,12 +20,12 @@ export class Comment {
   @ManyToOne(() => User, (user) => user.id)
   user: User;
   @Column()
-  public userId: string;
+  userId: string;
 
   @ManyToOne(() => Item, (item) => item.id)
   item: Item;
   @Column()
-  public itemId: string;
+  itemId: string;
 
   @Column({ default: null })
   createDate: string | null;
