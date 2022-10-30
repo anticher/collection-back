@@ -23,7 +23,10 @@ export class Item {
   @Column()
   name: string;
 
-  @ManyToMany(() => Tag, (tag) => tag.collectionItems)
+  @ManyToMany(() => Tag, (tag) => tag.collectionItems, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinTable({
     name: 'item_tag',
   })

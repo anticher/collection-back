@@ -16,4 +16,8 @@ export class TopicsService {
   public async addTopic(topic: CreateTopicDto): Promise<Topic> {
     return await this.topicsRepositoryService.addTopic(topic);
   }
+
+  public async addTopics(topics: string): Promise<Topic[]> {
+    return await this.topicsRepositoryService.addTopics(topics);
+  }
 }

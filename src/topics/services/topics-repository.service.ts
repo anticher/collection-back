@@ -16,6 +16,9 @@ export class TopicsRepositoryService {
       relations: {
         collections: true,
       },
+      order: {
+        name: 'ASC',
+      },
     });
   }
 
@@ -25,5 +28,15 @@ export class TopicsRepositoryService {
       createDate: Date.now().toString(),
     };
     return await this.topicsRepository.save(newTopic);
+  }
+
+  public async addTopics(topics: string): Promise<Topic[]> {
+    const topicsArr = topics.split(',');
+    const topicsWithDate = topicsArr.map((topic) => {
+      return { name: topic, createDate: Date.now().toString() };
+    });
+    const topicsEntities = this.topicsRepository.create(topicsWithDate);
+    await this.topicsRepository.insert(topicsEntities);
+    return topicsEntities;
   }
 }

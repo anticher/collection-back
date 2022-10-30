@@ -18,4 +18,8 @@ export class TagsService {
   public async addTag(tag: CreateTagDto): Promise<Tag> {
     return await this.tagsRepositoryService.addTag(tag);
   }
+
+  public async addTags(tags: string): Promise<Tag[]> {
+    return await this.tagsRepositoryService.addTags(tags);
+  }
 }

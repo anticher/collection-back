@@ -12,6 +12,9 @@ export class Topic {
   @Column({ default: null })
   createDate: string | null;
 
-  @OneToMany(() => Collection, (collection) => collection.topic)
+  @OneToMany(() => Collection, (collection) => collection.topic, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   collections: Collection[];
 }

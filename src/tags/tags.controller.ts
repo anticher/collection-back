@@ -38,4 +38,12 @@ export class TagsController {
   public async addTag(@Body() tag: CreateTagDto): Promise<Tag> {
     return await this.tagsService.addTag(tag);
   }
+
+  @Post('add-tags')
+  @UseGuards(CookieAuthenticationGuard, RolesGuard)
+  @Roles(Role.Admin)
+  @HttpCode(201)
+  public async addTags(@Body() tags: { names: string }): Promise<Tag[]> {
+    return await this.tagsService.addTags(tags.names);
+  }
 }

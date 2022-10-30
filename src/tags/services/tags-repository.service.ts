@@ -12,7 +12,9 @@ export class TagsRepositoryService {
   ) {}
 
   public async getAll(): Promise<Tag[]> {
-    return await this.tagsRepository.find();
+    return await this.tagsRepository.find({
+      order: { name: 'ASC' },
+    });
   }
 
   public async getOneByName(name: string): Promise<Tag> {
@@ -32,5 +34,15 @@ export class TagsRepositoryService {
       createDate: Date.now().toString(),
     };
     return await this.tagsRepository.save(newTag);
+  }
+
+  public async addTags(tags: string): Promise<Tag[]> {
+    const tagsArr = tags.split(',');
+    const tagsWithDate = tagsArr.map((tag) => {
+      return { name: tag, createDate: Date.now().toString() };
+    });
+    const tagsEntities = this.tagsRepository.create(tagsWithDate);
+    await this.tagsRepository.insert(tagsEntities);
+    return tagsEntities;
   }
 }
