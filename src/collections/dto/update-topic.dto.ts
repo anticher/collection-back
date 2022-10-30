@@ -1,10 +1,10 @@
 import { IsString } from 'class-validator';
 
-export class UpdateCollectionThemeDto {
+export class UpdateCollectionTopicDto {
   @IsString()
   id: string;
   @IsString()
-  themeName: string;
+  topicName: string;
   @IsString()
   ownerName: string;
   @IsString()

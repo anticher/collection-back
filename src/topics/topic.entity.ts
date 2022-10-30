@@ -2,7 +2,7 @@ import { Collection } from 'src/collections/entities/collection.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
-export class Theme {
+export class Topic {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -12,6 +12,6 @@ export class Theme {
   @Column({ default: null })
   createDate: string | null;
 
-  @OneToMany(() => Collection, (collection) => collection.theme)
+  @OneToMany(() => Collection, (collection) => collection.topic)
   collections: Collection[];
 }

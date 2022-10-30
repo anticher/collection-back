@@ -7,7 +7,7 @@ export class CreateCollectionDto {
   @IsString()
   description: string;
   @IsString()
-  theme: string;
+  topic: string;
   @IsString()
   @IsOptional()
   image: string;

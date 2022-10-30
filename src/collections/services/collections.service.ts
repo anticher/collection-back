@@ -6,7 +6,7 @@ import { UpdateCollectionDescriptionDto } from '../dto/update-description.dto';
 import { UpdateCollectionNameDto } from '../dto/update-name.dto';
 import { UpdateCollectionCustomFieldTitleDto } from '../dto/update-custom-field-title.dto';
 import { DeleteCollectionCustomFieldDto } from '../dto/delete-custom-field.dto';
-import { UpdateCollectionThemeDto } from '../dto/update-theme.dto';
+import { UpdateCollectionTopicDto } from '../dto/update-topic.dto';
 import { DeleteCollectionDto } from '../dto/delete-collection.dto';
 import { UpdateCollectionImageDto } from '../dto/update-image.dto';
 
@@ -60,11 +60,11 @@ export class CollectionsService {
     );
   }
 
-  public async updateCollectionTheme(
-    updateCollectionThemeDto: UpdateCollectionThemeDto,
+  public async updateCollectionTopic(
+    updateCollectionTopicDto: UpdateCollectionTopicDto,
   ): Promise<number> {
-    return await this.collectionsRepositoryService.updateCollectionTheme(
-      updateCollectionThemeDto,
+    return await this.collectionsRepositoryService.updateCollectionTopic(
+      updateCollectionTopicDto,
     );
   }
 

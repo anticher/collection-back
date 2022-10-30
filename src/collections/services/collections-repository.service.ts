@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Theme } from 'src/themes/theme.entity';
+import { Topic } from 'src/topics/topic.entity';
 import { Repository } from 'typeorm';
 import { Collection } from '../entities/collection.entity';
 import { CreateCollectionDto } from '../dto/create.dto';
@@ -9,7 +9,7 @@ import { UpdateCollectionDescriptionDto } from '../dto/update-description.dto';
 import { UpdateCollectionNameDto } from '../dto/update-name.dto';
 import { UpdateCollectionCustomFieldTitleDto } from '../dto/update-custom-field-title.dto';
 import { DeleteCollectionCustomFieldDto } from '../dto/delete-custom-field.dto';
-import { UpdateCollectionThemeDto } from '../dto/update-theme.dto';
+import { UpdateCollectionTopicDto } from '../dto/update-topic.dto';
 import { DeleteCollectionDto } from '../dto/delete-collection.dto';
 import { UpdateCollectionImageDto } from '../dto/update-image.dto';
 
@@ -18,8 +18,8 @@ export class CollectionsRepositoryService {
   constructor(
     @InjectRepository(Collection)
     private collectionsRepository: Repository<Collection>,
-    @InjectRepository(Theme)
-    private ThemesRepository: Repository<Theme>,
+    @InjectRepository(Topic)
+    private TopicsRepository: Repository<Topic>,
     @InjectRepository(CustomFieldTitle)
     private CustomFieldTitlesRepository: Repository<CustomFieldTitle>,
   ) {}
@@ -33,7 +33,7 @@ export class CollectionsRepositoryService {
             customFieldTitle: true,
           },
         },
-        theme: true,
+        topic: true,
         customFieldTitles: true,
       },
     });
@@ -51,7 +51,7 @@ export class CollectionsRepositoryService {
             customFieldTitle: true,
           },
         },
-        theme: true,
+        topic: true,
         customFieldTitles: true,
       },
     });
@@ -69,7 +69,7 @@ export class CollectionsRepositoryService {
             customFieldTitle: true,
           },
         },
-        theme: true,
+        topic: true,
         customFieldTitles: true,
       },
     });
@@ -99,12 +99,12 @@ export class CollectionsRepositoryService {
   public async addCollection(
     collection: CreateCollectionDto,
   ): Promise<Collection> {
-    const theme = await this.ThemesRepository.findOneBy({
-      name: collection.theme,
+    const topic = await this.TopicsRepository.findOneBy({
+      name: collection.topic,
     });
     const newCollection = {
       ...collection,
-      theme,
+      topic,
       createdBy: collection.username,
       createDate: Date.now().toString(),
     };
@@ -154,17 +154,17 @@ export class CollectionsRepositoryService {
     return result.affected;
   }
 
-  public async updateCollectionTheme(
-    updateCollectionThemeDto: UpdateCollectionThemeDto,
+  public async updateCollectionTopic(
+    updateCollectionTopicDto: UpdateCollectionTopicDto,
   ): Promise<number> {
-    const { id, themeName } = updateCollectionThemeDto;
-    const theme = await this.ThemesRepository.findOneBy({
-      name: themeName,
+    const { id, topicName } = updateCollectionTopicDto;
+    const topic = await this.TopicsRepository.findOneBy({
+      name: topicName,
     });
     const result = await this.collectionsRepository
       .createQueryBuilder()
       .update(Collection)
-      .set({ theme })
+      .set({ topic })
       .where('id = :id', { id })
       .execute();
     return result.affected;

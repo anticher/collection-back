@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class CreateThemeDto {
+export class CreateTopicDto {
   @IsString()
   name: string;
 }

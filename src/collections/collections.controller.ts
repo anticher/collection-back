@@ -19,7 +19,7 @@ import { UpdateCollectionDescriptionDto } from './dto/update-description.dto';
 import { UpdateCollectionNameDto } from './dto/update-name.dto';
 import { UpdateCollectionCustomFieldTitleDto } from './dto/update-custom-field-title.dto';
 import { DeleteCollectionCustomFieldDto } from './dto/delete-custom-field.dto';
-import { UpdateCollectionThemeDto } from './dto/update-theme.dto';
+import { UpdateCollectionTopicDto } from './dto/update-topic.dto';
 import { DeleteCollectionDto } from './dto/delete-collection.dto';
 import { UpdateCollectionImageDto } from './dto/update-image.dto';
 
@@ -91,14 +91,14 @@ export class CollectionsController {
     );
   }
 
-  @Patch('update-collection-theme')
+  @Patch('update-collection-topic')
   @UseGuards(CookieAuthenticationGuard)
   @HttpCode(201)
-  public async updateCollectionTheme(
-    @Body() updateCollectionThemeDto: UpdateCollectionThemeDto,
+  public async updateCollectionTopic(
+    @Body() updateCollectionTopicDto: UpdateCollectionTopicDto,
   ): Promise<number> {
-    return await this.collectionsService.updateCollectionTheme(
-      updateCollectionThemeDto,
+    return await this.collectionsService.updateCollectionTopic(
+      updateCollectionTopicDto,
     );
   }
 

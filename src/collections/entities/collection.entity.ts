@@ -1,5 +1,5 @@
 import { Item } from 'src/items/entities/item.entity';
-import { Theme } from 'src/themes/theme.entity';
+import { Topic } from 'src/topics/topic.entity';
 import { User } from 'src/users/user.entity';
 import {
   Entity,
@@ -24,8 +24,8 @@ export class Collection {
   @Column('text')
   description: string;
 
-  @ManyToOne(() => Theme, (theme) => theme.collections)
-  theme: Theme;
+  @ManyToOne(() => Topic, (topic) => topic.collections)
+  topic: Topic;
 
   @Column({ default: null })
   image: string | null;

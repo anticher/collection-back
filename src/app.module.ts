@@ -13,8 +13,8 @@ import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comment.entity';
 import { TagsModule } from './tags/tags.module';
 import { Tag } from './tags/tag.entity';
-import { ThemesModule } from './themes/themes.module';
-import { Theme } from './themes/theme.entity';
+import { TopicsModule } from './topics/topics.module';
+import { Topic } from './topics/topic.entity';
 import { AuthModule } from './auth/auth.module';
 import { CustomFieldTitle } from './collections/entities/custom-field-title.entity';
 import { CustomFieldValue } from './items/entities/custom-field-value.entity';
@@ -39,7 +39,7 @@ import { Like } from './likes/like.entity';
         Comment,
         Like,
         Tag,
-        Theme,
+        Topic,
         User,
         CustomFieldTitle,
         CustomFieldValue,
@@ -51,7 +51,7 @@ import { Like } from './likes/like.entity';
     ItemsModule,
     CommentsModule,
     TagsModule,
-    ThemesModule,
+    TopicsModule,
     AuthModule,
     LikesModule,
   ],
