@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { UsersRepositoryService } from 'src/users/services/users-repository.service';
@@ -37,6 +41,9 @@ export class AuthService {
     );
     if (!user) {
       throw new BadRequestException('Wrong credentials');
+    }
+    if (user.isBlocked) {
+      throw new ForbiddenException('User is blocked');
     }
     const isPasswordsMatch = await bcrypt.compare(
       loginDto.password,

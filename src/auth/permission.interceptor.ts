@@ -14,8 +14,6 @@ export class PermissionInterceptor implements NestInterceptor {
     const { user, body } = context.switchToHttp().getRequest();
     const { username, role } = user;
     const { ownerName, username: actionSourceUsername } = body;
-    console.log(user);
-    console.log(body);
     if (actionSourceUsername !== username) {
       throw new BadRequestException();
     }

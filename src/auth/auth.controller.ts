@@ -13,7 +13,6 @@ export class AuthController {
   @UseGuards(LogInWithCredentialsGuard)
   @Post('login')
   public async login(@Req() request: Request) {
-    console.log(request.sessionID);
     return request.user;
   }
 
@@ -21,7 +20,6 @@ export class AuthController {
   @UseGuards(CookieAuthenticationGuard)
   async logOut(@Req() request: Request) {
     request.session.cookie.maxAge = 0;
-    // request.logOut();
     request.session.destroy((e) => {
       if (e) {
         console.log(e);
@@ -36,7 +34,7 @@ export class AuthController {
     return await this.authService.registration(registrationDto);
   }
 
-  // @UseGuards(CookieAuthenticationGuard)
+  @UseGuards(CookieAuthenticationGuard)
   @Get('check-auth')
   async checkAuth(@Req() request: Request) {
     return request.user;

@@ -15,6 +15,7 @@ export class LocalSerializer extends PassportSerializer {
 
   async deserializeUser(userId: string, done: CallableFunction) {
     const user = await this.usersRepositoryService.getUserById(userId);
+    if (user.isBlocked) done(null, false);
     done(null, user);
   }
 }
