@@ -24,7 +24,6 @@ export class CollectionsService {
     const result = await this.collectionsRepositoryService.getByOwner(
       ownerName,
     );
-    console.log(result);
     return result;
   }
 

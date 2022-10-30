@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Item } from './entities/item.entity';
 import { CreateItemDto } from './dto/create.dto';
@@ -18,6 +19,7 @@ import { UpdateCollectionItemCustomFieldDto } from './dto/update-custom-field.dt
 import { UpdateCollectionItemImageDto } from './dto/update-image.dto';
 import { UpdateCollectionItemTagsDto } from './dto/update-tags.dto';
 import { DeleteCollectionItemDto } from './dto/delete-one.dto';
+import { PermissionInterceptor } from 'src/auth/permission.interceptor';
 
 @Controller('v1/collection-items')
 export class ItemsController {
@@ -51,6 +53,7 @@ export class ItemsController {
 
   @Post('add-collection-item')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async addCollectionItem(
     @Body() collectionItem: CreateItemDto,
@@ -69,6 +72,7 @@ export class ItemsController {
 
   @Patch('update-image')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionImage(
     @Body() updateCollectionItemImageDto: UpdateCollectionItemImageDto,
@@ -80,6 +84,7 @@ export class ItemsController {
 
   @Patch('update-tags')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionTags(
     @Body() updateCollectionItemTagsDto: UpdateCollectionItemTagsDto,
@@ -91,6 +96,7 @@ export class ItemsController {
 
   @Patch('update-custom-field')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCustomField(
     @Body()
@@ -103,6 +109,7 @@ export class ItemsController {
 
   @Delete('delete-one')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(204)
   public async deleteOne(
     @Body()

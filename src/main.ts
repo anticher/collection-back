@@ -23,14 +23,6 @@ async function bootstrap() {
     )}@${configService.get('REDIS_HOST')}:${configService.get('REDIS_PORT')}/0`,
     legacyMode: true,
   });
-  // const redisClient = createClient({
-  //   url: `redis://localhost:6379`,
-  //   legacyMode: true,
-  // });
-
-  // (async () => {
-  //   await redisClient.connect();
-  // })();
 
   redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err);

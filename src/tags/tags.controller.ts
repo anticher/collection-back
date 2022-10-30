@@ -1,4 +1,16 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { CookieAuthenticationGuard } from 'src/auth/guards/cookie-auth.guard';
+import { RolesGuard } from 'src/auth/guards/role.guard';
+import { Role } from 'src/auth/role.enum';
+import { Roles } from 'src/auth/roles.decorator';
 import { CreateTagDto } from './dto/create.dto';
 import { TagsService } from './services/tags.service';
 import { Tag } from './tag.entity';
@@ -20,6 +32,8 @@ export class TagsController {
   }
 
   @Post('add-tag')
+  @UseGuards(CookieAuthenticationGuard, RolesGuard)
+  @Roles(Role.Admin)
   @HttpCode(201)
   public async addTag(@Body() tag: CreateTagDto): Promise<Tag> {
     return await this.tagsService.addTag(tag);

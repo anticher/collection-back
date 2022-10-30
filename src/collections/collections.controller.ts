@@ -71,6 +71,7 @@ export class CollectionsController {
 
   @Patch('update-collection-description')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionDescription(
     @Body() updateCollectionDescriptionDto: UpdateCollectionDescriptionDto,
@@ -82,6 +83,7 @@ export class CollectionsController {
 
   @Patch('update-collection-name')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionName(
     @Body() updateCollectionNameDto: UpdateCollectionNameDto,
@@ -93,6 +95,7 @@ export class CollectionsController {
 
   @Patch('update-collection-topic')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionTopic(
     @Body() updateCollectionTopicDto: UpdateCollectionTopicDto,
@@ -104,6 +107,7 @@ export class CollectionsController {
 
   @Patch('update-collection-image')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionImage(
     @Body() updateCollectionImageDto: UpdateCollectionImageDto,
@@ -115,6 +119,7 @@ export class CollectionsController {
 
   @Patch('update-collection-custom-field-title')
   @UseGuards(CookieAuthenticationGuard)
+  @UseInterceptors(PermissionInterceptor)
   @HttpCode(201)
   public async updateCollectionCustomFieldTitle(
     @Body()
