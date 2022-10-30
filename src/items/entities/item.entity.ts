@@ -2,7 +2,6 @@ import { Collection } from 'src/collections/entities/collection.entity';
 import { CustomFieldValue } from 'src/items/entities/custom-field-value.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Tag } from 'src/tags/tag.entity';
-import { User } from 'src/users/user.entity';
 import {
   Entity,
   Column,
@@ -54,8 +53,6 @@ export class Item {
   @OneToMany(() => Like, (like) => like.item)
   likes: Like[];
 
-  @ManyToOne(() => User, (user) => user.username)
-  owner: User;
   @Column()
   ownerName: string;
 

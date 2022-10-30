@@ -105,7 +105,7 @@ export class CollectionsRepositoryService {
     const newCollection = {
       ...collection,
       topic,
-      createdBy: collection.username,
+      creatorName: collection.username,
       createDate: Date.now().toString(),
     };
     const createdCollection = await this.collectionsRepository.save(
@@ -125,7 +125,6 @@ export class CollectionsRepositoryService {
     return await this.collectionsRepository.findOneBy({
       id: createdCollection.id,
     });
-    return await this.collectionsRepository.save(createdCollection);
   }
 
   public async updateCollectionDescription(

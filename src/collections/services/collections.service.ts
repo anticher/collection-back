@@ -21,7 +21,11 @@ export class CollectionsService {
   }
 
   public async getByOwner(ownerName: string): Promise<Collection[]> {
-    return await this.collectionsRepositoryService.getByOwner(ownerName);
+    const result = await this.collectionsRepositoryService.getByOwner(
+      ownerName,
+    );
+    console.log(result);
+    return result;
   }
 
   public async getOneById(id: string): Promise<Collection> {

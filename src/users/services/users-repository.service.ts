@@ -13,19 +13,12 @@ export class UsersRepositoryService {
   ) {}
 
   public async getList() {
-    return await this.usersRepository.find({
-      relations: {
-        collections: true,
-      },
-    });
+    return await this.usersRepository.find();
   }
 
   public async getListExcludingPassword() {
     return await this.usersRepository.find({
       select: ['id', 'username', 'email', 'isBlocked', 'role', 'createDate'],
-      relations: {
-        collections: true,
-      },
     });
   }
 

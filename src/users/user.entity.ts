@@ -1,5 +1,3 @@
-import { Item } from 'src/items/entities/item.entity';
-import { Collection } from 'src/collections/entities/collection.entity';
 import { Comment } from 'src/comments/comment.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Role } from 'src/auth/role.enum';
@@ -35,12 +33,9 @@ export class User {
   @OneToMany(() => Like, (like) => like.item)
   likes: Like[];
 
-  @OneToMany(() => Collection, (collection) => collection.owner)
-  collections: Collection[];
-
-  @OneToMany(() => Item, (item) => item.owner)
-  items: Item[];
-
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   comments: Comment[];
 }

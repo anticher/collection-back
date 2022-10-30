@@ -1,6 +1,5 @@
 import { Item } from 'src/items/entities/item.entity';
 import { Topic } from 'src/topics/topic.entity';
-import { User } from 'src/users/user.entity';
 import {
   Entity,
   Column,
@@ -43,8 +42,6 @@ export class Collection {
   })
   items: Item[];
 
-  @ManyToOne(() => User, (user) => user.username)
-  owner: User;
   @Column()
   ownerName: string;
 
