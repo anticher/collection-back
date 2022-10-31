@@ -36,7 +36,10 @@ export class CustomFieldTitle {
   )
   customFieldValues: CustomFieldValue[];
 
-  @ManyToOne(() => Collection, (Collection) => Collection.customFieldTitles)
+  @ManyToOne(() => Collection, (Collection) => Collection.customFieldTitles, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   collection: Collection;
   @Column()
   collectionId: string;
